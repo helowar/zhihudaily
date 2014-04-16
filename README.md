@@ -1,5 +1,3 @@
-知乎日报web版
+##知乎日报web版
 
-应用托管在新浪sae，网址：http://zhihudaily.sinaapp.com
-
-基于GPLv3开源许可协议发布，详见：http://www.faceair.net/archives/211
+全部推翻重写，并自己实现一个简陋的MVC框架
