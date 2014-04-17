@@ -1,6 +1,6 @@
 <?php
 defined('INAF') or exit('Access Denied');
-class DB{
+class DB extends AF{
     private $mysql;
 
     public function __construct($config){
@@ -10,13 +10,13 @@ class DB{
     }
 
     public function runSql($sql){
-        mysqli_query($this->mysql ,$sql[0]) or die(mysqli_error());
+        mysqli_query($this->mysql ,$sql) or die(mysqli_error($this->mysql));
     }
 
     public function getData($sql){
-        $result = mysqli_query($this->mysql ,$sql[0]) or die(mysqli_error());
+        $result = mysqli_query($this->mysql ,$sql) or die(mysqli_error($this->mysql));
         $array = array();
-        while($row = mysqli_fetch_assoc($this->mysql ,$result)) {
+        while($row = mysqli_fetch_assoc($result)) {
             $array[] = $row;
         }
         return $array;

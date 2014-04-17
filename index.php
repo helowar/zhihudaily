@@ -3,8 +3,8 @@ date_default_timezone_set("Asia/Shanghai");
 define('INAF',true);
 define('AFROOT',str_replace('\\', '/', dirname(__FILE__)));
 spl_autoload_register("my_autoload");
-global $AF;
-$config = include(AFROOT . '/config.php');
+
+include(AFROOT . '/config.php');
 
 preg_match("/[\w\/]+/",substr($_SERVER['REQUEST_URI'],1), $matches) or $matches[0] = "";
 $urlParam = explode('/',$matches[0]);
@@ -27,4 +27,13 @@ function my_autoload ($ClassName) {
         include(AFROOT . "/Model/" . $ClassName . ".php");
     else
         die('Not Found Class ' . $ClassName);
+}
+
+class AF{
+    public function __get($method){
+        if(isset($GLOBALS['config'][$method]) and !isset($this->$method))
+            $this->$method = new $method($GLOBALS['config'][$method]);
+        elseif(!isset($this->$method))
+            $this->$method = new $method();
+    }
 }

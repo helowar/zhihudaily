@@ -1,6 +1,6 @@
 <?php
 defined('INAF') or exit('Access Denied');
-class OP{
+class OP extends AF{
     public function view($path, $data = ''){
         if(!empty($data)){
             foreach ($data as $key => $value)
