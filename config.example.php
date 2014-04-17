@@ -1,16 +1,12 @@
 <?php
 defined('INAF') or exit('Access Denied');
 
-$config = array();
+$GLOBALS['config']['router']['index'] = 'view/day';
+$GLOBALS['config']['router']['story'] = 'view/story';
+$GLOBALS['config']['router']['list'] = 'view/day';
 
-$config['router']['index'] = 'view/day';
-$config['router']['story'] = 'view/story';
-$config['router']['list'] = 'view/day';
-
-$config['DB']['host'] = 'localhost';
-$config['DB']['username'] = '';
-$config['DB']['password'] = '';
-$config['DB']['database'] = 'zhihu';
-$config['DB']['charset'] = 'utf8';
-
-return $config;
+$GLOBALS['config']['DB']['host'] = 'localhost';
+$GLOBALS['config']['DB']['username'] = 'faceair';
+$GLOBALS['config']['DB']['password'] = 'ml285714285';
+$GLOBALS['config']['DB']['database'] = 'faceair_zhihu';
+$GLOBALS['config']['DB']['charset'] = 'utf8';
