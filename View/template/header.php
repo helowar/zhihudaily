@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <title>知乎日报 - 满足你的好奇心</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><?php echo $title;?></title>
-    <meta name = "viewport" content ="initial-scale=1.0,maximum-scale=1,user-scalable=no">
-    <link rel="stylesheet" href="../Static/style.css">
-    <script src="http://upcdn.b0.upaiyun.com/libs/modernizr/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" href="/Static/bootstrap.min.css">
+    <link rel="stylesheet" href="/Static/index.css">
+    <base target="_blank">
 </head>
-<body>
+<body class="home">
