@@ -9,6 +9,18 @@ include(AFROOT . '/config.php');
 preg_match("/[\w\/]+/",substr($_SERVER['REQUEST_URI'],1), $matches) or $matches[0] = "";
 $urlParam = explode('/',$matches[0]);
 
+if(!isset($urlParam[1])){
+    $controllerParam = explode('/',$config['router']['default']);
+    if(isset($config[$controllerParam[0]]))
+        $Class = new $controllerParam[0]($config[$controllerParam[0]]);
+    else
+        $Class = new $controllerParam[0]();
+    if(isset($controllerParam[1]))
+        $Class->$controllerParam[1]();
+    else
+        $Class->index();
+}
+
 foreach($config['router'] as $key => $value){
     if($key == $urlParam[0]){
         $controllerParam = explode('/',$value);
@@ -16,9 +28,14 @@ foreach($config['router'] as $key => $value){
             $Class = new $controllerParam[0]($config[$controllerParam[0]]);
         else
             $Class = new $controllerParam[0]();
-        $Class->$controllerParam[1]($urlParam[1]);
+        if(isset($controllerParam[1]))
+            $Class->$controllerParam[1]($urlParam[1]);
+        else
+            $Class->index($urlParam[1]);
     }
 }
+
+die('404 Not Found.');
 
 function my_autoload ($ClassName) {
     if(file_exists(AFROOT . "/Controller/" . $ClassName . ".php"))
