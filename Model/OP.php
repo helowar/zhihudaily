@@ -2,10 +2,9 @@
 defined('INAF') or exit('Access Denied');
 class OP extends AF{
     public function view($path, $data = ''){
-        if(!empty($data)){
+        if(!empty($data))
             foreach ($data as $key => $value)
                 $$key = $value;
-        }
 
         if(file_exists(AFROOT . '/View/' . $path . '.php'))
             include(AFROOT . '/View/' . $path . '.php');

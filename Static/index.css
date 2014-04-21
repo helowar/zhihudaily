@@ -75,7 +75,7 @@ h2.section-title {
     font-weight: normal;
     font-size: 26px;
     margin: 0;
-    padding: 0 12px 20px;
+    padding: 0 14px 20px;
     border-bottom: solid 1px #ccc;
 }
 .feature {
@@ -141,4 +141,209 @@ h2.section-title {
 .footer .txt {
     color: #b8b8b8;
     text-decoration: none;
+}
+
+
+
+.main-wrap {
+    max-width: 600px;
+    min-width: 300px;
+    margin: 0 auto;
+}
+
+.content-wrap {
+    overflow: hidden;
+    background-color: #fff;
+}
+.content-wrap a {
+    word-break: break-all;
+}
+
+.headline {
+    border-bottom: 4px solid #f6f6f6;
+}
+.headline-title.onlyheading {
+    margin: 20px 0;
+}
+.headline img {
+    max-width: 100%;
+    vertical-align: top;
+}
+html.no-touch .headline-background:hover {
+    background-color: #fdfdfd;
+}
+.headline-background-link {
+    line-height: 2em;
+    position: relative;
+    padding: 25px 40px;
+    display: block;
+    text-decoration: none;
+}
+.icon-arrow-right {
+    position: absolute;
+    top:50%;
+    right:20px;
+    margin-top: -10px;
+}
+.headline-background .heading{
+    color: #999;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.headline-background .heading-content {
+    font-size: 24px;
+    color: #444;
+    text-decoration: none;
+}
+.img-wrap {
+    position: relative;
+    max-height: 375px;
+    overflow: hidden;
+}
+.img-wrap img {
+    margin-top: -18%;
+    width: 640px;
+}
+.img-wrap .img-source {
+    position: absolute;
+    bottom: 10px;
+    z-index: 1;
+    font-size: 12px;
+    color: rgba(255,255,255,.6);
+    right: 40px;
+    text-shadow: 0px 1px 2px rgba(0,0,0,.3);
+}
+.img-mask {
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0) 25%, rgba(0,0,0,0.6) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(25%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.6))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 25%,rgba(0,0,0,0.6) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0,0,0,0) 25%,rgba(0,0,0,0.6) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0,0,0,0) 25%,rgba(0,0,0,0.6) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 25%,rgba(0,0,0,0.6) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#99000000',GradientType=0 ); /* IE6-9 */
+}
+.headline-title {
+    margin: 20px 0 10px;
+    font-size: 30px;
+    line-height: 1.2em;
+    padding: 0 40px;
+    color: #222;
+}
+.img-wrap .headline-title {
+    margin: 20px 0;
+    bottom: 10px;
+    z-index: 1;
+    position: absolute;
+    color: white;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+}
+.headline-summary {
+    padding: 20px 40px 0;
+}
+
+.meta {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+    color: #b8b8b8;
+}
+.meta span {
+    vertical-align: middle;
+}
+.meta .source-icon {
+    width: 20px;
+    height: 20px;
+}
+.meta .time {
+    float: right;
+    margin-top: 2px;
+}
+.meta .source-icon {
+    margin-right: 4px;
+}
+.meta .source {
+    vertical-align: middle;
+}
+
+.content {
+    color: #444;
+    line-height: 2em;
+    margin: 10px 0 25px;
+}
+.content img{
+    max-width: 100%;
+    margin: 10px 0;
+    display: block;
+}
+.content img[src*="zhihu.com/equation"] {
+    display: inline-block;
+    margin: 0 3px;
+}
+.content a {
+    color: #105CB6;
+    text-decoration: none;
+}
+.content a:hover {
+    text-decoration: underline;
+}
+.view-more {
+    text-align: right;
+    margin-bottom: 30px;
+}
+.view-more a{
+    color: #698ebf;
+    font-size: 14px;
+    text-decoration: none;
+}
+html.no-touch .view-more a:hover {
+    text-decoration: underline;
+}
+
+.question {
+    padding: 0 40px;
+    overflow: hidden;
+}
+.question + .question {
+    border-top: 5px solid #f6f6f6;
+}
+
+.question-title{
+    font-size: 22px;
+    line-height: 1.4em;
+    color: #222;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.meta .author {
+    color: #444;
+}
+.meta .avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    margin-right: 5px;
+}
+.meta .bio {
+    color: #999;
+}
+.answer + .answer {
+    border-top: 2px solid #f6f6f6;
+    padding-top: 30px;
+}
+
+html.no-touch .footer a:hover {
+    text-decoration: underline;
+}
+
+#pre{
+    background:url(http://3gimg.qq.com/images/3gqq/ad_ctr.png) 0px 0px no-repeat;
+}
+#next{
+    background:url(http://3gimg.qq.com/images/3gqq/ad_ctr.png) 0px -90px no-repeat;
 }

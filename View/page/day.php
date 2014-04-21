@@ -2,7 +2,15 @@
     <div class="col-6">
         <h2 class="section-title">
             <?php
-                print '今日热闻';
+            $i = 0;
+            if(isset($$i)){
+                $data = $$i;
+                if($data['date'] == date('Ymd'))
+                    print '今日热闻';
+                else
+                    $weekarray = array("日","一","二","三","四","五","六");
+                    print date('Y.m.d',strtotime($data['date'])) . " 星期".$weekarray[date("w",strtotime($data['date']))];
+            }
             ?>
         </h2>
     </div>
@@ -12,20 +20,20 @@
     $i = 0;
     $col = '';
     while (isset($$i)) {
-        print_r($$i);
-        $col += <<< HTML
+        $data = $$i;
+        $col = <<< HTML
         <div class="col-md-4">
-            <div href="{$$i['share_url']}" class="feature">
+            <div href="{$data['share_url']}" class="feature">
                 <div class="mask"></div>
-                <img src="{$$i['image']}">
-                <a href="{$$i['share_url']}">
-                    <h3>{$$i['title']}</h3>
+                <img src="{$data['image']}">
+                <a href="{$data['share_url']}">
+                    <h3>{$data['title']}</h3>
                 </a>
             </div>
         </div>
 HTML;
+        print $col;
         $i++;
     }
-    print $col;
     ?>
 </div>
