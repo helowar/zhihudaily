@@ -11,4 +11,4 @@ HTML;
 
 $body = str_replace('<div class="img-place-holder"></div>',$imgwrap,$body);
 
-echo $body;
+print $body;

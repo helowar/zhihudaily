@@ -23,10 +23,10 @@
         $data = $$i;
         $col = <<< HTML
         <div class="col-md-4">
-            <div href="{$data['share_url']}" class="feature">
+            <div href="/story/{$data['id']}" class="feature">
                 <div class="mask"></div>
                 <img src="{$data['image']}">
-                <a href="{$data['share_url']}">
+                <a href="/story/{$data['id']}">
                     <h3>{$data['title']}</h3>
                 </a>
             </div>

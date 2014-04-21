@@ -8,6 +8,7 @@ class view extends AF{
 
     public function story($id){
         $data = $this->DB->getData("SELECT * FROM `daily` WHERE `id` = '{$id}'");
+        $data[0]['type'] = 'story';
         $this->OP->view('template/header',$data[0]);
         $this->OP->view('template/navbar',$data[0]);
         $this->OP->view('page/story',$data[0]);
@@ -18,6 +19,7 @@ class view extends AF{
         if($day == 'today')
             $day = '20140123';//date('Ymd');
         $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+        $data['type'] = 'day';
         $this->OP->view('template/header',$data);
         $this->OP->view('template/navbar',$data);
         $this->OP->view('page/day',$data);
