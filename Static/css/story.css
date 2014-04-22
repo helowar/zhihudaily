@@ -116,55 +116,6 @@ ul, ol {
     bottom: 0;
 }
 
-.button {
-    display: inline-block;
-    height: 36px;
-    line-height: 36px;
-    width: 120px;
-    background-color: #1cade9;
-    margin: 0 5px;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    border-radius: 4px;
-    font-size: 14px;
-}
-html.no-touch .button:hover {
-    background-color: #1fb3f0;
-}
-.button i {
-    margin-right: 10px;
-}
-.button span {
-    vertical-align: -2px;
-}
-
-.rss {
-    display: inline-block;
-    height: 36px;
-    line-height: 36px;
-    width: 50px;
-    background-color: #1cade9;
-    margin: 0 5px;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.rss i {
-    margin-right: 10px;
-}
-.rss span {
-    vertical-align: -2px;
-}
-
-
-.search {
-    float: right;
-}
-
 .main-wrap {
     max-width: 640px;
     min-width: 300px;
@@ -291,7 +242,7 @@ html.no-touch .headline-background:hover {
 }
 
 .content {
-    font-size: 17px;
+    font-size: 16px;
     color: #444;
     line-height: 2em;
     margin: 10px 0 25px;
