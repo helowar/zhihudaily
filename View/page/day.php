@@ -7,9 +7,10 @@
                 $data = $$i;
                 if($data['date'] == date('Ymd'))
                     print '今日热闻';
-                else
+                else{
                     $weekarray = array("日","一","二","三","四","五","六");
                     print date('Y.m.d',strtotime($data['date'])) . " 星期".$weekarray[date("w",strtotime($data['date']))];
+                }
             }
             ?>
         </h2>
