@@ -16,7 +16,8 @@ class view extends AF{
     }
 
     public function day($day = 'today'){
-        $day = date('Ymd');
+        if($day == 'today')
+            $day = date('Ymd');
         $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
         $data['type'] = 'day';
         $this->OP->view('template/header',$data);
