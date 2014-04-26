@@ -1,15 +1,18 @@
+https = require("https")
 http = require("http")
 mysql = require("mysql")
+fs = require('fs')
 connection = mysql.createConnection(
-  host: ""
-  user: ""
-  password: ""
-  database: ""
+  host: "localhost"
+  user: "faceair"
+  password: "ml285714285"
+  database: "faceair_zhihu"
 )
 connection.connect()
 
 getData = (url,callback,parameter = '') ->
-  http.get(url, (res) ->
+  protocol = ((if url.match(/https/) then https else http))
+  protocol.get(url, (res) ->
     buffers = []
     nread = 0
     res.on "data", (chunk) ->
@@ -33,24 +36,33 @@ getData = (url,callback,parameter = '') ->
             chunk.copy buffer, pos
             pos += chunk.length
             i++
-      Json = JSON.parse buffer
-      callback Json,parameter if parameter != ''
-      callback Json if parameter == ''
+      callback buffer,parameter if parameter != ''
+      callback buffer if parameter == ''
   )
 
 addMysql = (storyJson) ->
   connection.query "INSERT ignore INTO `daily` (title,share_url,id,body,date,image,image_source,date_index) VALUES (#{connection.escape(storyJson.title)},#{connection.escape(storyJson.share_url)},#{connection.escape(storyJson.id)},#{connection.escape(storyJson.body)},#{connection.escape(storyJson.date)},#{connection.escape(storyJson.image)},#{connection.escape(storyJson.image_source)},#{connection.escape(storyJson.date_index)})", (err, rows, fields) ->
     console.log storyJson.date
 
+dealStory = (storyJson) ->
+  storyJson.body.match(/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g)
+  getData(storyJson.image,(imgData) ->
+    fs.writeFile __dirname + "/test.jpg", imgData
+  )
+
 getDay = (url) ->
-  getData url, (dayJson) ->
+  console.log url
+  getData url, (buffer) ->
+    dayJson = JSON.parse buffer
     if typeof(dayJson.news) != "undefined"
       for news, index in dayJson.news
-        getData(news.url, (storyJson,index) ->
+        getData(news.url, (buffer,index) ->
+          storyJson = JSON.parse buffer
           storyJson.date = dayJson.date
           storyJson.date_index = dayJson.news.length - index
+          dealStory storyJson
           addMysql storyJson
         ,index)
-      getDay "http://news-at.zhihu.com/api/2/news/before/" + dayJson.date
+      getDay "https://news-at.zhihu.com/api/2/news/before/" + dayJson.date
 
-getDay "http://news-at.zhihu.com/api/2/news/latest"
+getDay "https://news-at.zhihu.com/api/2/news/latest"
