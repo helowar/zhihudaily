@@ -3,10 +3,10 @@ http = require("http")
 mysql = require("mysql")
 fs = require('fs')
 connection = mysql.createConnection(
-  host: "localhost"
-  user: "faceair"
-  password: "ml285714285"
-  database: "faceair_zhihu"
+  host: ""
+  user: ""
+  password: ""
+  database: ""
 )
 connection.connect()
 
@@ -50,7 +50,7 @@ dealStory = (storyJson) ->
     for image in images
       getData(image,(imgData,image) ->
         nameArray =  image.match(/[^\/\\\\]+$/g)
-        fs.writeFile __dirname + "/" + nameArray[0], imgData
+        fs.writeFile __dirname + "/../Static/img/" + nameArray[0], imgData
       ,image)
 
 getDay = (url) ->
