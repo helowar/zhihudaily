@@ -45,10 +45,13 @@ addMysql = (storyJson) ->
     console.log storyJson.date
 
 dealStory = (storyJson) ->
-  storyJson.body.match(/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g)
-  getData(storyJson.image,(imgData) ->
-    fs.writeFile __dirname + "/test.jpg", imgData
-  )
+  images = storyJson.body.match(/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g)
+  if images
+    for image in images
+      getData(image,(imgData,image) ->
+        nameArray =  image.match(/[^\/\\\\]+$/g)
+        fs.writeFile __dirname + "/" + nameArray[0], imgData
+      ,image)
 
 getDay = (url) ->
   console.log url
