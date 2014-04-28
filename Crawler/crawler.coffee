@@ -53,21 +53,27 @@ dealStory = (storyJson) ->
   images = [] if images == null
   images.push storyJson.image
   for image in images
-    getData(image,(imgData,image) ->
-      imgname = image.match(/[^\/\\\\]+$/g)[0]
-      folderA = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/"
-      folderB = folderA + imgname.slice(2,4) + "/"
+    imgname = image.match(/[^\/\\\\]+$/g)[0]
+    imgpath = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/" + imgname.slice(2,4) + "/" + imgname
+    fs.exists(imgpath,(exists)->
+      if !exists
+        getData(image,(imgData,image) ->
+          imgname = image.match(/[^\/\\\\]+$/g)[0]
+          folderA = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/"
+          folderB = folderA + imgname.slice(2,4) + "/"
 
-      if ! fs.existsSync folderA
-        fs.mkdirSync folderA
-        fs.mkdirSync folderB
-      else
-        if ! fs.existsSync folderB
-          fs.mkdirSync folderB
+          if ! fs.existsSync folderA
+            fs.mkdirSync folderA
+            fs.mkdirSync folderB
+          else
+            if ! fs.existsSync folderB
+              fs.mkdirSync folderB
 
-      fs.writeFile folderB + imgname, imgData
-      console.log "img " + storyJson.id
-    ,image)
+          fs.writeFile(folderB + imgname, imgData,(err)->
+            if (err) throw err;
+          )
+          console.log "img " + storyJson.id
+        ,image)
   addMysql storyJson
 
 getDay = (url) ->

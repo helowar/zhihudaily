@@ -35,8 +35,6 @@ foreach($config['router'] as $key => $value){
     }
 }
 
-die('404 Not Found.');
-
 function my_autoload ($ClassName) {
     if(file_exists(AFROOT . "/Controller/" . $ClassName . ".php"))
         include(AFROOT . "/Controller/" . $ClassName . ".php");
