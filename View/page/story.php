@@ -1,6 +1,13 @@
 <?php
-$image = preg_replace('/http:\/\/.+\.zhimg\.com/',"http://zhihudaily.2local.tk/Static/img",$image);
-$body = preg_replace('/http:\/\/.+\.zhimg\.com/',"http://zhihudaily.2local.tk/Static/img",$body);
+preg_match('/[^\/\\\\]+$/',$image,$imgnames);
+$image = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+
+preg_match_all('/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/',$body,$urlnames);
+foreach($urlnames[0] as $urlname){
+    preg_match('/[^\/\\\\]+$/',$urlname,$imgnames);
+    $imageurl = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+    $body = str_replace($urlname,$imageurl,$body);
+}
 
 $imgwrap = <<< HTML
 <div class="img-wrap">

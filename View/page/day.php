@@ -22,7 +22,8 @@
     $col = '';
     while (isset($$i)) {
         $data = $$i;
-        $data['image'] = preg_replace('/http:\/\/.+\.zhimg\.com/',"http://zhihudaily.2local.tk/Static/img",$data['image']);
+        preg_match('/[^\/\\\\]+$/',$data['image'],$imgnames);
+        $data['image'] = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
         $col = <<< HTML
         <div class="col-md-4">
             <div href="/story/{$data['id']}" class="feature">
