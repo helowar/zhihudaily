@@ -22,6 +22,7 @@
     $col = '';
     while (isset($$i)) {
         $data = $$i;
+        $data['image'] = preg_replace('/http:\/\/.+\.zhimg\.com/',"http://zhihudaily.2local.tk/Static/img",$data['image']);
         $col = <<< HTML
         <div class="col-md-4">
             <div href="/story/{$data['id']}" class="feature">

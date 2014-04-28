@@ -1,4 +1,6 @@
 <?php
+$image = preg_replace('/http:\/\/.+\.zhimg\.com/',"http://zhihudaily.2local.tk/Static/img",$image);
+$body = preg_replace('/http:\/\/.+\.zhimg\.com/',"http://zhihudaily.2local.tk/Static/img",$body);
 
 $imgwrap = <<< HTML
 <div class="img-wrap">

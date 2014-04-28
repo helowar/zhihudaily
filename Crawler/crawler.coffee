@@ -38,6 +38,8 @@ getData = (url,callback,parameter = '') ->
             i++
       callback buffer,parameter if parameter != ''
       callback buffer if parameter == ''
+  ).on('error', (e) ->
+    getData url,callback,parameter
   )
 
 addMysql = (storyJson) ->
@@ -46,15 +48,26 @@ addMysql = (storyJson) ->
 
 dealStory = (storyJson) ->
   images = storyJson.body.match(/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g)
-  if images
-    for image in images
-      getData(image,(imgData,image) ->
-        nameArray =  image.match(/[^\/\\\\]+$/g)
-        fs.writeFile __dirname + "/../Static/img/" + nameArray[0], imgData
-      ,image)
+  images = [] if images == null
+  images.push storyJson.image
+  for image in images
+    getData(image,(imgData,image) ->
+      imgname = image.match(/[^\/\\\\]+$/g)[0]
+      folderA = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/"
+      folderB = folderA + imgname.slice(2,4) + "/"
+
+      if ! fs.existsSync folderA
+        fs.mkdirSync folderA
+        fs.mkdirSync folderB
+      else
+        if ! fs.existsSync folderB
+          fs.mkdirSync folderB
+
+      fs.writeFile folderB + imgname, imgData
+      console.log imgname
+    ,image)
 
 getDay = (url) ->
-  console.log url
   getData url, (buffer) ->
     dayJson = JSON.parse buffer
     if typeof(dayJson.news) != "undefined"

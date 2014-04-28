@@ -55,8 +55,6 @@ ul, ol {
     height: 70px;
     background-color: #009dd7;
     color: #FaFcFe;
-    -webkit-box-shadow: 0 1px #f8f4f1;
-    box-shadow: 0 1px #f8f4f1;
 }
 
 .global-header .title {
