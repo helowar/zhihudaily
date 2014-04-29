@@ -69,11 +69,10 @@ dealStory = (storyJson) ->
             if ! fs.existsSync folderB
               fs.mkdirSync folderB
 
-          fs.writeFile(folderB + imgname, imgData,(err)->
-            if (err) throw err;
-          )
+          fs.writeFile folderB + imgname, imgData
           console.log "img " + storyJson.id
         ,image)
+    )
   addMysql storyJson
 
 getDay = (url) ->
@@ -87,6 +86,6 @@ getDay = (url) ->
           storyJson.date_index = dayJson.news.length - index
           dealStory storyJson
         ,index)
-      getDay "https://news-at.zhihu.com/api/2/news/before/" + dayJson.date
+      #getDay "https://news-at.zhihu.com/api/2/news/before/" + dayJson.date
 
 getDay "https://news-at.zhihu.com/api/2/news/latest"
