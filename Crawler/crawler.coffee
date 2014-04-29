@@ -49,14 +49,15 @@ addMysql = (storyJson) ->
     console.log "sql " + storyJson.id
 
 dealStory = (storyJson) ->
-  images = storyJson.body.match(/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g)
+  images = storyJson.body.match(/http:\/\/[\w]+\.zhimg.com\/[\w_.\/]+/g)
   images = [] if images == null
   images.push storyJson.image
   for image in images
-    imgname = image.match(/[^\/\\\\]+$/g)[0]
-    imgpath = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/" + imgname.slice(2,4) + "/" + imgname
-    fs.exists(imgpath,(exists)->
-      if !exists
+    console.log image
+    if image
+      imgname = image.match(/[^\/\\\\]+$/g)[0]
+      imgpath = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/" + imgname.slice(2,4) + "/" + imgname
+      if ! fs.existsSync imgpath
         getData(image,(imgData,image) ->
           imgname = image.match(/[^\/\\\\]+$/g)[0]
           folderA = __dirname + "/../Static/img/" + imgname.slice(0,2) + "/"
@@ -70,22 +71,24 @@ dealStory = (storyJson) ->
               fs.mkdirSync folderB
 
           fs.writeFile folderB + imgname, imgData
-          console.log "img " + storyJson.id
+          console.log "img " + imgname
         ,image)
-    )
   addMysql storyJson
 
-getDay = (url) ->
-  getData url, (buffer) ->
-    dayJson = JSON.parse buffer
-    if typeof(dayJson.news) != "undefined"
-      for news, index in dayJson.news
-        getData(news.url, (buffer,index) ->
-          storyJson = JSON.parse buffer
-          storyJson.date = dayJson.date
-          storyJson.date_index = dayJson.news.length - index
-          dealStory storyJson
-        ,index)
-      #getDay "https://news-at.zhihu.com/api/2/news/before/" + dayJson.date
+getDay = (url = "https://news-at.zhihu.com/api/2/news/latest") ->
+  Today = new Date()
+  if Today.getHours() < 6 and Today.getHours() < 24
+    getData url, (buffer) ->
+      dayJson = JSON.parse buffer
+      if typeof(dayJson.news) != "undefined"
+        for news, index in dayJson.news
+          getData(news.url, (buffer,index) ->
+            storyJson = JSON.parse buffer
+            storyJson.date = dayJson.date
+            storyJson.date_index = dayJson.news.length - index
+            dealStory storyJson
+          ,index)
+        getDay "https://news-at.zhihu.com/api/2/news/before/" + dayJson.date
 
-getDay "https://news-at.zhihu.com/api/2/news/latest"
+getDay()
+#setInterval getDay,600000

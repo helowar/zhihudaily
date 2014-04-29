@@ -1,6 +1,6 @@
 <?php
-
-$day_header = <<< HTML
+if($type == 'day')
+    print <<< HTML
 <div class="header navbar-fixed-top">
     <div class="container-fixed-width clearfix">
         <h1 class="logo">
@@ -15,17 +15,11 @@ $day_header = <<< HTML
 <div class="main-content">
     <div class="container-fixed-width">
 HTML;
-
-$story_header = <<< HTML
+elseif($type == 'story')
+    print <<< HTML
 <div class="global-header">
 	<div class="main-wrap">
-		<a href="/" target="_self" title="知乎日报"><i class="web-logo"></i></a>
+		<a href="/day/{$date}" target="_self" title="知乎日报"><i class="web-logo"></i></a>
 	</div>
 </div>
 HTML;
-
-
-if($type == 'day')
-    print $day_header;
-elseif($type == 'story')
-    print $story_header;

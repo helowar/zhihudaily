@@ -124,7 +124,7 @@ h2.section-title {
     color: #b8b8b8;
     font-size: 13px;
 }
-.footer .txt {
+.footer a,.txt {
     color: #b8b8b8;
     text-decoration: none;
 }

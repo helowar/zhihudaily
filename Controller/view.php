@@ -16,9 +16,18 @@ class view extends AF{
     }
 
     public function day($day = 'today'){
-        if($day == 'today')
+        if($day == 'today'){
             $day = date('Ymd');
-        $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+            $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+            if(count($data) == 0){
+                $day = date('Ymd', time() - 60 * 60 * 24);
+                $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+            }
+        }else{
+            $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+        }
+        $preDay = date('Ymd',strtotime($day) - 3600*24);
+        $data["preImage"] = $this->DB->getData("SELECT image FROM daily WHERE `date` = '{$preDay}' ORDER BY rand() LIMIT 1")[0]["image"];
         $data['type'] = 'day';
         $this->OP->view('template/header',$data);
         $this->OP->view('template/navbar',$data);

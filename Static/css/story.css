@@ -427,9 +427,6 @@ html.no-touch .footer a:hover {
     .question {
         padding: 0 20px !important;
     }
-    .global-header {
-        display: none;
-    }
     .button {
         width: 60px;
     }

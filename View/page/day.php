@@ -24,6 +24,8 @@
         $data = $$i;
         preg_match('/[^\/\\\\]+$/',$data['image'],$imgnames);
         $data['image'] = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+        preg_match('/[^\/\\\\]+$/',$preImage,$imgnames);
+        $preImage = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
         $col = <<< HTML
         <div class="col-md-4">
             <div href="/story/{$data['id']}" class="feature">
@@ -38,5 +40,22 @@ HTML;
         print $col;
         $i++;
     }
+
+    $preDay = date('Ymd',strtotime($data['date']) - 3600*24);
+    $preDisplay = date('Y.m.d',strtotime($preDay)) . " 星期".$weekarray[date("w",strtotime($preDay))];
+
+    $preHtml = <<< HTML
+        <div class="col-md-4">
+            <div href="/day/{$preDay}" class="feature">
+                <div class="mask"></div>
+                <img src="{$preImage}">
+                <a href="/day/{$preDay}">
+                    <h3>{$preDisplay}</h3>
+                </a>
+            </div>
+        </div>
+HTML;
+    print $preHtml;
+
     ?>
 </div>
