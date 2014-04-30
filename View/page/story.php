@@ -1,6 +1,7 @@
 <?php
 preg_match('/[^\/\\\\]+$/',$image,$imgnames);
-$image = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+if(isset($imgnames[0]))
+    $image = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
 
 preg_match_all('/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/',$body,$urlnames);
 foreach($urlnames[0] as $urlname){
@@ -17,7 +18,15 @@ $imgwrap = <<< HTML
     <div class="img-mask"></div>
 </div>
 HTML;
+if(isset($image))
+    $body = str_replace('<div class="img-place-holder"></div>',$imgwrap,$body);
 
-$body = str_replace('<div class="img-place-holder"></div>',$imgwrap,$body);
-
-print $body;
+if(strpos($body,"禁止转载"))
+    print <<< HTML
+<center><h3>本答案禁止转载，正在跳转到原链接</h3></center>
+<script language="javascript" type="text/javascript">
+       window.setTimeout("location='{$share_url}'", 1000);
+</script>
+HTML;
+else
+    print $body;

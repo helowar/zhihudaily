@@ -2,13 +2,13 @@
     <div class="col-6">
         <h2 class="section-title">
             <?php
+            $weekarray = array("日","一","二","三","四","五","六");
             $i = 0;
             if(isset($$i)){
                 $data = $$i;
                 if($data['date'] == date('Ymd'))
                     print '今日热闻';
                 else{
-                    $weekarray = array("日","一","二","三","四","五","六");
                     print date('Y.m.d',strtotime($data['date'])) . " 星期".$weekarray[date("w",strtotime($data['date']))];
                 }
             }
@@ -23,9 +23,11 @@
     while (isset($$i)) {
         $data = $$i;
         preg_match('/[^\/\\\\]+$/',$data['image'],$imgnames);
-        $data['image'] = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
-        preg_match('/[^\/\\\\]+$/',$preImage,$imgnames);
-        $preImage = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+        if(isset($imgnames[0]))
+            $data['image'] = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+        else
+            $data['image'] = "";
+
         $col = <<< HTML
         <div class="col-md-4">
             <div href="/story/{$data['id']}" class="feature">
@@ -40,6 +42,9 @@ HTML;
         print $col;
         $i++;
     }
+
+    preg_match('/[^\/\\\\]+$/',$preImage,$imgnames);
+    $preImage = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
 
     $preDay = date('Ymd',strtotime($data['date']) - 3600*24);
     $preDisplay = date('Y.m.d',strtotime($preDay)) . " 星期".$weekarray[date("w",strtotime($preDay))];

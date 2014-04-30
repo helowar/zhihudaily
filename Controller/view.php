@@ -8,11 +8,15 @@ class view extends AF{
 
     public function story($id){
         $data = $this->DB->getData("SELECT * FROM `daily` WHERE `id` = '{$id}'");
-        $data[0]['type'] = 'story';
-        $this->OP->view('template/header',$data[0]);
-        $this->OP->view('template/navbar',$data[0]);
-        $this->OP->view('page/story',$data[0]);
-        $this->OP->view('template/footer',$data[0]);
+        if(count($data) == 0)
+            $this->OP->view('error/404');
+        else{
+            $data[0]['type'] = 'story';
+            $this->OP->view('template/header',$data[0]);
+            $this->OP->view('template/navbar',$data[0]);
+            $this->OP->view('page/story',$data[0]);
+            $this->OP->view('template/footer',$data[0]);
+        }
     }
 
     public function day($day = 'today'){
@@ -27,11 +31,18 @@ class view extends AF{
             $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
         }
         $preDay = date('Ymd',strtotime($day) - 3600*24);
-        $data["preImage"] = $this->DB->getData("SELECT image FROM daily WHERE `date` = '{$preDay}' ORDER BY rand() LIMIT 1")[0]["image"];
-        $data['type'] = 'day';
-        $this->OP->view('template/header',$data);
-        $this->OP->view('template/navbar',$data);
-        $this->OP->view('page/day',$data);
-        $this->OP->view('template/footer',$data);
+        $preData = $this->DB->getData("SELECT image FROM daily WHERE `date` = '{$preDay}' ORDER BY rand() LIMIT 1");
+        if(count($preData) != 0)
+            $data["preImage"] = $preData[0]["image"];
+
+        if(count($data) == 0)
+            $this->OP->view('error/404');
+        else{
+            $data['type'] = 'day';
+            $this->OP->view('template/header',$data);
+            $this->OP->view('template/navbar',$data);
+            $this->OP->view('page/day',$data);
+            $this->OP->view('template/footer',$data);
+        }
     }
 }
