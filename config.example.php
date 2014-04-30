@@ -1,9 +1,9 @@
 <?php
 defined('INAF') or exit('Access Denied');
 
-$GLOBALS['config']['router']['index'] = 'view/day';
+$GLOBALS['config']['router']['default'] = 'view/day';
 $GLOBALS['config']['router']['story'] = 'view/story';
-$GLOBALS['config']['router']['list'] = 'view/day';
+$GLOBALS['config']['router']['day'] = 'view/day';
 
 $GLOBALS['config']['DB']['host'] = 'localhost';
 $GLOBALS['config']['DB']['username'] = '';

@@ -20,8 +20,6 @@ body.home {
 }
 .header {
     background: #33a9d8;
-    -webkit-box-shadow: 0 1px #f8f4f1;
-    box-shadow: 0 1px #f8f4f1;
     height: 70px;
 }
 .logo {

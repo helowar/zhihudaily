@@ -80,8 +80,6 @@ addFeed = () ->
       )
     fs.writeFile __dirname + "/../rss.xml", feed.xml()
 
-
-
 dealStory = (storyJson) ->
   images = storyJson.body.match(/http:\/\/[\w]+\.zhimg.com\/[\w_.\/]+/g)
   images = [] if images == null
@@ -125,4 +123,4 @@ getDay = (url = "https://news-at.zhihu.com/api/2/news/latest") ->
         #getDay "https://news-at.zhihu.com/api/2/news/before/" + dayJson.date
 
 getDay()
-setInterval getDay(),600000
+setInterval getDay,600000
