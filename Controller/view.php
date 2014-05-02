@@ -24,10 +24,12 @@ class view extends AF{
     public function day($day = 'today'){
         if($day == 'today'){
             $day = date('Ymd');
-            $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
-            if(count($data) == 0){
-                $day = date('Ymd', time() - 60 * 60 * 24);
+            $i = 0;
+            $data = array();
+            while(count($data) == 0){
+                $i++;
                 $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+                $day = date('Ymd', time() - 60 * 60 * 24 * $i);
             }
         }else{
             $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
