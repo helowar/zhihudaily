@@ -4,6 +4,7 @@ class view extends AF{
     public function __construct(){
         $this->DB;
         $this->OP;
+        $this->UA;
     }
 
     public function story($id){
@@ -12,6 +13,7 @@ class view extends AF{
             $this->OP->view('error/404');
         else{
             $data[0]['type'] = 'story';
+            $data[0]['is_mobile'] = $this->UA->is_mobile();
             $this->OP->view('template/header',$data[0]);
             $this->OP->view('template/navbar',$data[0]);
             $this->OP->view('page/story',$data[0]);
@@ -39,6 +41,7 @@ class view extends AF{
             $this->OP->view('error/404');
         else{
             $data['type'] = 'day';
+            $data['is_mobile'] = $this->UA->is_mobile();
             $this->OP->view('template/header',$data);
             $this->OP->view('template/navbar',$data);
             $this->OP->view('page/day',$data);

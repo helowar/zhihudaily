@@ -320,7 +320,6 @@ html.no-touch .view-more a:hover {
     padding-top: 25px;
     padding-bottom: 15px;
 }
-
 .footer {
     padding: 20px 0;
     text-align: center;
@@ -336,7 +335,7 @@ html.no-touch .view-more a:hover {
     margin-top: 10px;
     margin-bottom: 40px;
 }
-a.download-btn {
+a.page-btn {
     display: inline-block;
     height: 60px;
     line-height: 60px;
@@ -367,15 +366,20 @@ html.no-touch .footer a:hover {
     blockquote, sup {
         line-height: 1.4em;
     }
+    .global-header {
+        height: 60px;
+    }
     .global-header .main-wrap {
         margin: 0 10px;
+        height: 60px;
+        position: relative;
+        line-height: 60px;
     }
     .qr {
         display: none;
     }
     .footer {
-        background-color: white;
-        padding: 0px 0 15px;
+        padding: 10px 0 15px;
     }
     .footer-download {
         display: block;
@@ -438,6 +442,12 @@ html.no-touch .footer a:hover {
     }
     .button span {
         display: none;
+    }
+    a.page-btn {
+        height: 40px;
+        line-height: 40px;
+        width: 250px;
+        font-size: 15px;
     }
     .view-more {
         margin-bottom: 25px;
