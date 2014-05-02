@@ -11,7 +11,7 @@ connection = mysql.createConnection(
 )
 connection.connect()
 
-getData = (url,callback,parameter = '') ->
+getData = (url,callback,parameter = '',times = 0) ->
   if url
     protocol = ((if url.match(/https/) then https else http))
     protocol.get(url, (res) ->
@@ -42,7 +42,8 @@ getData = (url,callback,parameter = '') ->
         callback buffer if parameter == ''
     ).on('error', (e) ->
       console.log url
-      getData url,callback,parameter
+      times += 1
+      getData url,callback,parameter,times if times < 3
     )
 
 addMysql = (storyJson) ->
