@@ -27,9 +27,9 @@ class view extends AF{
             $i = 0;
             $data = array();
             while(count($data) == 0){
-                $i++;
-                $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
                 $day = date('Ymd', time() - 60 * 60 * 24 * $i);
+                $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
+                $i++;
             }
         }else{
             $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
