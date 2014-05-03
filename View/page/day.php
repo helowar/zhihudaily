@@ -46,13 +46,14 @@ HTML;
                     $i++;
                 }
 
-                preg_match('/[^\/\\\\]+$/',$preImage,$imgnames);
-                $preImage = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+                if(isset($preImage)){
+                    preg_match('/[^\/\\\\]+$/',$preImage,$imgnames);
+                    $preImage = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
 
-                $preDay = date('Ymd',strtotime($data['date']) - 3600*24);
-                $preDisplay = date('Y.m.d',strtotime($preDay)) . " 星期".$weekarray[date("w",strtotime($preDay))];
+                    $preDay = date('Ymd',strtotime($data['date']) - 3600*24);
+                    $preDisplay = date('Y.m.d',strtotime($preDay)) . " 星期".$weekarray[date("w",strtotime($preDay))];
 
-                $preHtml = <<< HTML
+                    $preHtml = <<< HTML
                     <div class="col-md-4">
                         <div href="/day/{$preDay}" class="feature">
                             <div class="mask"></div>
@@ -63,8 +64,8 @@ HTML;
                         </div>
                     </div>
 HTML;
-                print $preHtml;
-
+                    print $preHtml;
+                }
                 ?>
             </div>
         </div>

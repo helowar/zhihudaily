@@ -28,5 +28,6 @@ if(strpos($body,"禁止转载"))
        window.setTimeout("location='{$share_url}'", 1000);
 </script>
 HTML;
-else
+else{
     print $body;
+}
