@@ -3,7 +3,7 @@
 ###简介
 新版实现了一个简陋的MVC框架，并重写了手机和电脑显示样式。
 
-demo：[知乎日报 - 满足你的好奇心](http://zhihudaily.faceair.me/)
+demo：[知乎日报 - 满足你的好奇心](http://www.zhihudaily.net/)
 
 ###部署
 
