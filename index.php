@@ -19,6 +19,7 @@ if(!isset($urlParam[1])){
         $Class->$controllerParam[1]();
     else
         $Class->index();
+    exit;
 }
 
 foreach($config['router'] as $key => $value){

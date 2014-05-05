@@ -34,14 +34,15 @@ class view extends AF{
         }else{
             $data = $this->DB->getData("SELECT * FROM `daily` WHERE `date` = '{$day}' ORDER BY - `date_index`");
         }
-        $preDay = date('Ymd',strtotime($day) - 3600*24);
-        $preData = $this->DB->getData("SELECT image FROM daily WHERE `date` = '{$preDay}' ORDER BY rand() LIMIT 1");
-        if(count($preData) != 0)
-            $data["preImage"] = $preData[0]["image"];
 
         if(count($data) == 0)
             $this->OP->view('error/404');
         else{
+            $preDay = date('Ymd',strtotime($day) - 3600*24);
+            $preData = $this->DB->getData("SELECT image FROM daily WHERE `date` = '{$preDay}' ORDER BY rand() LIMIT 1");
+            if(count($preData) != 0)
+                $data["preImage"] = $preData[0]["image"];
+
             $data['type'] = 'day';
             $data['is_mobile'] = $this->UA->is_mobile();
             $this->OP->view('template/header',$data);

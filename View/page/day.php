@@ -35,7 +35,7 @@
                     <div class="col-md-4">
                         <div href="/story/{$data['id']}" class="feature">
                             <div class="mask"></div>
-                            <img src="{$data['image']}">
+                            <img alt="{$data['title']}" src="{$data['image']}">
                             <a href="/story/{$data['id']}">
                                 <h3>{$data['title']}</h3>
                             </a>

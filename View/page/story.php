@@ -14,7 +14,7 @@ $imgwrap = <<< HTML
 <div class="img-wrap">
     <h1 class="headline-title">{$title}</h1>
     <span class="img-source">图片：{$image_source}</span>
-    <img src="{$image}" alt="">
+    <img alt="{$title}"  src="{$image}">
     <div class="img-mask"></div>
 </div>
 HTML;
@@ -28,6 +28,5 @@ if(strpos($body,"禁止转载"))
        window.setTimeout("location='{$share_url}'", 1000);
 </script>
 HTML;
-else{
+else
     print $body;
-}

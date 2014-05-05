@@ -63,8 +63,8 @@ addFeed = () ->
     feed = new RSS(
       title: "知乎日报"
       description: "知乎日报 - 满足你的好奇心"
-      feed_url: "http://zhihudaily.faceair.me/rss.xml"
-      site_url: "http://zhihudaily.faceair.me"
+      feed_url: "http://www.zhihudaily.net/rss.xml"
+      site_url: "http://www.zhihudaily.net"
       author: "知乎"
       webMaster: "faceair"
       copyright: "© 2013-2014 知乎"

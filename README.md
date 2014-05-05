@@ -10,6 +10,7 @@ demo：[知乎日报 - 满足你的好奇心](http://www.zhihudaily.net/)
 * crawler.coffee 是用coffee写的node.js实现的爬虫模块（依赖于mysql、rss模块）,需要一直在后台运行。
 * 配置nginx的所有非文件请求转发到index.php，index.php是入口文件
 * 数据库结构见daily.sql，可以直接导入
+* 建议将Crawler文件夹权限设置为700，保证不被nginx当做静态文件显示
 
 ###TODO
 
