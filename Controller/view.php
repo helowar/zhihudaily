@@ -51,4 +51,35 @@ class view extends AF{
             $this->OP->view('template/footer',$data);
         }
     }
+
+    public function sections(){
+        $data = $this->DB->getData("SELECT substring_index(`title`,' · ',1) AS `section`,COUNT(substring_index(`title`,' · ',1)) AS `count`,`image` FROM `daily` GROUP BY `section` ORDER BY `count` DESC");
+
+        if(count($data) == 0)
+            $this->OP->view('error/404');
+        else{
+            $data['type'] = 'day';
+            $data['is_mobile'] = $this->UA->is_mobile();
+            $this->OP->view('template/header',$data);
+            $this->OP->view('template/navbar',$data);
+            $this->OP->view('page/sections',$data);
+            $this->OP->view('template/footer',$data);
+        }
+    }
+
+    public function section($section){
+        $section = base64_decode($section);
+        $data = $this->DB->getData("SELECT * FROM `daily` WHERE `title` REGEXP '{$section}' ORDER BY `date` DESC");
+        if(count($data) == 0)
+            $this->OP->view('error/404');
+        else{
+            $data['section'] = $section;
+            $data['type'] = 'day';
+            $data['is_mobile'] = $this->UA->is_mobile();
+            $this->OP->view('template/header',$data);
+            $this->OP->view('template/navbar',$data);
+            $this->OP->view('page/section',$data);
+            $this->OP->view('template/footer',$data);
+        }
+    }
 }

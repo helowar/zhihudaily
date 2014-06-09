@@ -112,6 +112,21 @@ h2.section-title {
     line-height: 26px;
     display: block;
 }
+.feature h5 {
+    font-weight: normal;
+    font-size: 16px;
+    color: #fff;
+    /* margin: -61px auto 0; */
+    position: absolute;
+    bottom: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 245px;
+    width: 87%;
+    left: 70%;
+    line-height: 26px;
+    display: block;
+}
 .feature:hover {
     outline: solid 2px #33a9d8;
 }
