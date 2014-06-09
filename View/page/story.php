@@ -1,15 +1,4 @@
 <?php
-preg_match('/[^\/\\\\]+$/',$image,$imgnames);
-if(isset($imgnames[0]))
-    $image = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
-
-preg_match_all('/http:\/\/[\w-]+\.zhimg([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/',$body,$urlnames);
-foreach($urlnames[0] as $urlname){
-    preg_match('/[^\/\\\\]+$/',$urlname,$imgnames);
-    $imageurl = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
-    $body = str_replace($urlname,$imageurl,$body);
-}
-
 $imgwrap = <<< HTML
 <div class="img-wrap">
     <h1 class="headline-title">{$title}</h1>
@@ -28,5 +17,6 @@ if(strpos($body,"禁止转载"))
        window.setTimeout("location='{$share_url}'", 1000);
 </script>
 HTML;
-else
+else{
     print $body;
+}

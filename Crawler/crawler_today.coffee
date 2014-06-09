@@ -1,6 +1,7 @@
 request = require "request"
 async = require "async"
 mysql = require "mysql"
+RSS = require "rss"
 fs = require "fs"
 
 #贴图库SDK,暂时还未整合进来 https://gist.github.com/faceair/21ac198495edbb965c6b
@@ -14,7 +15,7 @@ connection = mysql.createConnection
 
 connection.connect()
 
-getData = (url, callback, parameter = '',   times = 0) ->
+getData = (url, callback, parameter = '', times = 0) ->
   request url, (error, response, body) ->
     if not error and response.statusCode is 200
       callback body, parameter if parameter != ''
@@ -56,18 +57,50 @@ addMysql = (storyJson, times = 0) ->
         console.log 'date：' + storyJson.date
         connection.query "INSERT ignore INTO `daily` (title,share_url,id,body,date,image,image_source,date_index) VALUES (#{connection.escape(storyJson.title)},#{connection.escape(storyJson.share_url)},#{connection.escape(storyJson.id)},#{connection.escape(storyJson.body)},#{connection.escape(storyJson.date)},#{connection.escape(storyJson.image)},#{connection.escape(storyJson.image_source)},#{connection.escape(storyJson.date_index)})", (err, rows) ->
 
+addFeed = () ->
+  dt = new Date()
+  Y = dt.getFullYear()
+  m = dt.getMonth() + 1
+  if m < 10
+    m = "0" + m
+  d = dt.getDate()
+  if d < 10
+    d = "0" + d
+  connection.query "SELECT * FROM `daily` WHERE `date` = '#{Y + m + d}' ORDER BY - `date_index`", (err, rows) ->
+    feed = new RSS(
+      title: "知乎日报"
+      description: "知乎日报 - 满足你的好奇心"
+      feed_url: "http://www.zhihudaily.net/rss.xml"
+      site_url: "http://www.zhihudaily.net"
+      author: "知乎"
+      webMaster: "faceair"
+      copyright: "© 2013-2014 知乎"
+      language: "zh"
+      pubDate: (new Date).toUTCString()
+    )
+    for row in rows
+      feed.item(
+        title:  row.title,
+        description: row.body,
+        url: row.share_url,
+        guid: row.id,
+        date: row.date
+      )
+    fs.writeFile __dirname + "/../rss.xml", feed.xml()
+
 getDay = (url = "http://news-at.zhihu.com/api/3/stories/latest") ->
   getData url, (buffer) ->
     dayJson = JSON.parse buffer
     if typeof(dayJson.stories) != "undefined"
       for story,index in dayJson.stories
+        addFeed()
         getData("http://news-at.zhihu.com/api/3/story/" + story.id, (buffer,index) ->
           storyJson = JSON.parse buffer
           storyJson.date = dayJson.date
           storyJson.date_index = dayJson.stories.length - index
           addMysql storyJson
         ,index)
-      getDay "http://news-at.zhihu.com/api/3/stories/before/" + dayJson.date
+      #getDay "http://news-at.zhihu.com/api/3/stories/before/" + dayJson.date
 
 getDay()
-#setInterval getDay,600000
+setInterval getDay,600000

@@ -25,17 +25,12 @@
                 $col = '';
                 while (isset($$i)) {
                     $data = $$i;
-                    preg_match('/[^\/\\\\]+$/',$data['image'],$imgnames);
-                    if(isset($imgnames[0]))
-                        $data['image'] = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
-                    else
-                        $data['image'] = "";
 
                     $col = <<< HTML
                     <div class="col-md-4">
                         <div href="/story/{$data['id']}" class="feature">
                             <div class="mask"></div>
-                            <img alt="{$data['title']}" src="{$data['image']}">
+                            <img src="{$data['image']}">
                             <a href="/story/{$data['id']}">
                                 <h3>{$data['title']}</h3>
                             </a>
@@ -47,14 +42,10 @@ HTML;
                 }
 
                 if(isset($preImage)){
-                    preg_match('/[^\/\\\\]+$/',$preImage,$imgnames);
-                    if(isset($imgnames[0])){
-                        $preImage = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
+                    $preDay = date('Ymd',strtotime($data['date']) - 3600*24);
+                    $preDisplay = date('Y.m.d',strtotime($preDay)) . " 星期".$weekarray[date("w",strtotime($preDay))];
 
-                        $preDay = date('Ymd',strtotime($data['date']) - 3600*24);
-                        $preDisplay = date('Y.m.d',strtotime($preDay)) . " 星期".$weekarray[date("w",strtotime($preDay))];
-
-                        $preHtml = <<< HTML
+                    $preHtml = <<< HTML
                     <div class="col-md-4">
                         <div href="/day/{$preDay}" class="feature">
                             <div class="mask"></div>
@@ -65,8 +56,7 @@ HTML;
                         </div>
                     </div>
 HTML;
-                        print $preHtml;
-                    }
+                    print $preHtml;
                 }
                 ?>
             </div>
@@ -93,11 +83,7 @@ HTML;
             while (isset($$i)) {
                 $data = $$i;
                 if($i == 0){
-                    preg_match('/[^\/\\\\]+$/',$data['image'],$imgnames);
-                    if(isset($imgnames[0]))
-                        $image = "/Static/img/" . substr($imgnames[0],0,2) . "/" . substr($imgnames[0],2,2) . "/" .$imgnames[0];
-                    else
-                        $image = "";
+                    $image = $data['image'];
                     $image_source = $data['image_source'];
                     print  <<< HTML
                         <div class="img-wrap">

@@ -14,7 +14,7 @@ if(!$is_mobile && $type == 'day')
 </div>
 HTML;
 elseif($type == 'story' || $is_mobile && $type == 'day'){
-    if($type == 'story')
+    if($type == 'story' && isset($date))
         $home = "/day/{$date}";
     else
         $home = "/";

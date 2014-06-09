@@ -11,8 +11,20 @@
 HTML;
     }
 
-    ?>
-    <br><div class="txt">© 2013-2014 知乎 &middot; Powered by <a href="https://github.com/faceair/zhihudaily">faceair</a></div>
+    if(!$is_mobile){ ?>
+        <br><div class="txt">内容采集自知乎日报，由 <a href="https://github.com/faceair/zhihudaily">faceair</a> 维护，感谢 <a href="http://tietuku.com/">贴图库</a> 提供图片外链</div>
+    <?php }else{ ?>
+        <br><div class="txt">内容采集自知乎日报，由 <a href="https://github.com/faceair/zhihudaily">faceair</a> 维护</div>
+    <?php }?>
 </div>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?339d749938744acd9bea875d1d494696";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 </body>
 </html>
