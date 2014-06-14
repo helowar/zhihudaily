@@ -15,7 +15,7 @@
                 while (isset($$i)) {
                     $data = $$i;
                     if($data['count'] > 5){
-                        $data['section_url'] = base64_encode($data['section']);
+                        $data['section_url'] = urlencode($data['section']);
                         $col = <<< HTML
                     <div class="col-md-4">
                         <div href="/section/{$data['section_url']}" class="feature">

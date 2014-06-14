@@ -58,6 +58,7 @@ class view extends AF{
         if(count($data) == 0)
             $this->OP->view('error/404');
         else{
+            $data['home'] = '/';
             $data['type'] = 'day';
             $data['is_mobile'] = $this->UA->is_mobile();
             $this->OP->view('template/header',$data);
@@ -68,11 +69,12 @@ class view extends AF{
     }
 
     public function section($section){
-        $section = base64_decode($section);
+        $section = urldecode($section);
         $data = $this->DB->getData("SELECT * FROM `daily` WHERE `title` REGEXP '{$section}' ORDER BY `date` DESC");
         if(count($data) == 0)
             $this->OP->view('error/404');
         else{
+            $data['home'] = '/sections/';
             $data['section'] = $section;
             $data['type'] = 'day';
             $data['is_mobile'] = $this->UA->is_mobile();

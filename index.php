@@ -6,7 +6,7 @@ spl_autoload_register("my_autoload");
 
 include(AFROOT . '/config.php');
 
-preg_match("/[\w\/+]+/",substr($_SERVER['REQUEST_URI'],1), $matches) or $matches[0] = "";
+preg_match("/[\w\/%]+/",substr($_SERVER['REQUEST_URI'],1), $matches) or $matches[0] = "";
 $urlParam = explode('/',$matches[0]);
 
 if(!isset($urlParam[1])){

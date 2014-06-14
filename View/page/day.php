@@ -58,6 +58,22 @@ HTML;
 HTML;
                     print $preHtml;
                 }
+                $adHtml = <<< HTML
+                <div class="col-md-4">
+                 <div class="feature">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 知乎日报自适应 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2534573625028866"
+     data-ad-slot="1489019231"
+     data-ad-format="auto"></ins>
+<script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+</script>       </div>
+               </div>
+HTML;
+                //print $adHtml;
                 ?>
             </div>
         </div>
