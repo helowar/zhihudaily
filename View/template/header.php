@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <?php
     if(!$is_mobile && $type == 'day'){
-        print '<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.3/css/bootstrap.min.css"><link rel="stylesheet" href="/Static/css/day.css"><base target="_self">';
+        print '<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css"><link rel="stylesheet" href="/Static/css/day.css"><base target="_self">';
     }elseif($type == 'story' || $is_mobile && $type == 'day')
         print '<link rel="stylesheet" href="/Static/css/story.css"><base target="_blank">';
     ?>

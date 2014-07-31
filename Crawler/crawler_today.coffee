@@ -26,8 +26,8 @@ getData = (url, callback, parameter = '', times = 0) ->
 
 addMysql = (storyJson, times = 0) ->
   connection.query "SELECT id FROM `daily` WHERE id = '#{connection.escape(storyJson.id)}'", (err, rows) ->
-    if !rows[0] and storyJson.body?
-      imageUrls = storyJson.body.match /https?:\/\/[^\/\s]+\/\S+\.(?:jpg|png|gif)/g
+    if !rows[0] and storyJson.body? and storyJson.image?
+      imageUrls = storyJson.body.match /https?:\/\/\S+?zhimg\.com\/\S+?\.(?:jpg|png|gif)/g
       imageUrls = [] if imageUrls == null
       imageUrls.push storyJson.image
 
@@ -39,23 +39,28 @@ addMysql = (storyJson, times = 0) ->
               fileurl: imageUrl
           , (error, response, body) ->
             if not error and response.statusCode is 200 and !body.match('错误') and !body.match('失败')
-              console.log body
               bodyJson = JSON.parse body
               tietukuUrls = bodyJson.url.match(/img\](.+)\[\/img/)
               callback null, [imageUrl,tietukuUrls[1]]
             else
-              console.log 'sleep 5s'
-              sleep5s = ->
-                times += 1
-                addMysql storyJson, times if times < 3
-              setTimeout sleep5s, 5000
+              if times < 3
+                console.log 'sleep 5s'
+                sleep5s = ->
+                  times += 1
+                  addMysql storyJson, times
+                setTimeout sleep5s, 5000
+              else
+                callback null, [imageUrl,imageUrl]
       ), (err, results) ->
         for result in results
           storyJson.body = storyJson.body.replace(result[0],result[1])
           storyJson.image = storyJson.image.replace(result[0],result[1])
         console.log 'id：' + storyJson.id
         console.log 'date：' + storyJson.date
-        connection.query "INSERT ignore INTO `daily` (title,share_url,id,body,date,image,image_source,date_index) VALUES (#{connection.escape(storyJson.title)},#{connection.escape(storyJson.share_url)},#{connection.escape(storyJson.id)},#{connection.escape(storyJson.body)},#{connection.escape(storyJson.date)},#{connection.escape(storyJson.image)},#{connection.escape(storyJson.image_source)},#{connection.escape(storyJson.date_index)})", (err, rows) ->
+        connection.query "INSERT ignore INTO `daily` (title,share_url,id,body,date,image,image_source,date_index) VALUES (#{connection.escape(storyJson.title)},#{connection.escape(storyJson.share_url)},#{connection.escape(storyJson.id)},#{connection.escape(storyJson.body)},#{connection.escape(storyJson.date)},#{connection.escape(storyJson.image)},#{connection.escape(storyJson.image_source)},#{connection.escape(storyJson.date_index)})", (err) ->
+    else
+      connection.query "INSERT ignore INTO `daily` (title,share_url,id,body,date,image,image_source,date_index) VALUES (#{connection.escape(storyJson.title)},#{connection.escape(storyJson.share_url)},#{connection.escape(storyJson.id)},#{connection.escape(storyJson.body)},0,#{connection.escape(storyJson.theme_image)},'',0)", (err) ->
+
 
 addFeed = () ->
   dt = new Date()

@@ -12,9 +12,9 @@ HTML;
     }
 
     if(!$is_mobile){ ?>
-        <br><div class="txt">内容采集自知乎日报，由 <a href="https://github.com/faceair/zhihudaily">faceair</a> 维护，感谢 <a href="http://tietuku.com/">贴图库</a> 提供图片外链</div>
+        <br><div class="txt">内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a> ，感谢 <a href="http://tietuku.com/">贴图库</a> 提供图片外链</div>
     <?php }else{ ?>
-        <br><div class="txt">内容采集自知乎日报，由 <a href="https://github.com/faceair/zhihudaily">faceair</a> 维护</div>
+        <br><div class="txt">内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a></div>
     <?php }?>
 </div>
 <script>
