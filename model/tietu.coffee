@@ -1,5 +1,3 @@
-tietuku = require("../config").tietuku
-
 class tietusdk
   constructor: (@accesskey,@secretkey) ->
 
@@ -14,8 +12,10 @@ class tietusdk
   Base64: (str) ->
     return new Buffer(str).toString('base64').replace('+','-').replace('/','_')
 
-module.exports =
-  getToken = ->
+{tietuku} = require "../config"
+tietu ={}
+
+tietu.getToken = ->
     param =
       deadline: Date.now() + 31536000
       album: tietuku.album
@@ -25,3 +25,5 @@ module.exports =
 
     sdk = new tietusdk tietuku.accesskey,tietuku.secretkey
     return sdk.Token param
+
+module.exports = tietu

@@ -11,11 +11,10 @@ StorySchema = new Schema
   title: String
   image: String
   share_url: String
-  js: Array
   ga_prefix: String
   type: Number
-  css: Array
   date: String
+  index: Number
 , { versionKey: false }
 
 module.exports =

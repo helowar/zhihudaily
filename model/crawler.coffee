@@ -1,6 +1,7 @@
 _ = require "underscore"
+request = require "request"
 async = require "async"
-{getToken} = require "./tietu"
+getToken = require("./tietu").getToken
 crawler = {}
 
 crawler.getData = (url, cb, times = 0) ->
@@ -33,18 +34,20 @@ crawler.upImage = (storyObj, cb)->
   async.map imageUrls, ((imageUrl, callback)->
     unless imageUrl
       callback null
-      crawler.postData "http://api.tietuku.com/v1/Up",
-        form:
-          Token: token
-          fileurl: imageUrl
-      , (err, body) ->
-        if err
-          callback null
-        else
-          tietukuUrls = body.url.match(/img\](.+)\[\/img/)
-          callback null, [imageUrl, tietukuUrls[1]]
+    crawler.postData "http://up.tietuku.com",
+      form:
+        Token: token
+        fileurl: imageUrl
+    , (err, body) ->
+      if err or body.code
+        callback null
+      else
+        tietukuUrls = body.url.match(/img\](.+)\[\/img/)
+        callback null, [imageUrl, tietukuUrls[1]]
   ), (err, results) ->
     return cb err if err
+    if results.length is 0
+      return cb null, storyObj
     for result in results
       storyObj.body = storyObj.body.replace(result[0],result[1])
       storyObj.image = storyObj.image.replace(result[0],result[1])
