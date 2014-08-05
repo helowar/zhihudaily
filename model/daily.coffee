@@ -29,8 +29,6 @@ daily.saveStory = (storyObj, date, index, cb)->
       title: storyObj.title
       image: storyObj.image
       share_url: storyObj.share_url
-      ga_prefix: storyObj.ga_prefix
-      type: storyObj.type
       date: date
       index: index
     story = new StorySchema storyObj_new

@@ -11,8 +11,6 @@ StorySchema = new Schema
   title: String
   image: String
   share_url: String
-  ga_prefix: String
-  type: Number
   date: String
   index: Number
 , { versionKey: false }
