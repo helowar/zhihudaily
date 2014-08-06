@@ -9,3 +9,11 @@ module.exports =
     album: 1000
     accesskey: ""
     secretkey: ""
+
+  crawler:
+    interval: 600000
+    fetch: "today"
+
+  redis:
+    host: "localhost"
+    port: 6358

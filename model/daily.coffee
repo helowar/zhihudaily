@@ -48,20 +48,15 @@ daily.getStory = (story_id, cb)->
 daily.getDay = (date, cb)->
   query =
     date: date
-  StorySchema.find(query).sort('-index').exec (err, storysObj)->
+  StorySchema.find(query).sort('-index').exec (err, storysArr)->
     return cb err if err
-    if storysObj.length is 0
+    if storysArr.length is 0
       return cb new Error "DayNotFound"
-    return cb null, storysObj
+    return cb null, storysArr
 
-daily.updateStory = (storyObj, storyObj_new, cb)->
-  StorySchema.findByIdAndUpdate storyObj._id, storyObj_new, (err, storyObj)->
+daily.randOne = (date, cb)->
+  daily.getDay date, (err, storysArr)->
     return cb err if err
-    return cb null, storyObj
-
-daily.deleteStory = (storyObj, cb)->
-  StorySchema.findByIdAndRemove storyObj._id, (err)->
-    return cb err if err
-    return cb null, true
+    return cb null, storysArr[Math.floor(Math.random()*storysArr.length)]
 
 module.exports = daily

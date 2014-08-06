@@ -1,0 +1,10 @@
+extends template/header
+
+block content
+    div.global-header
+        div.main-wrap
+            a(href="/day/#{date}",target="_self",title="知乎日报")
+                i.web-logo
+    div.main-wrap.content-wrap
+        != body
+    div.footer #{time}ms · 内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a> ，感谢 <a href="http://tietuku.com/">贴图库</a> 提供图片外链

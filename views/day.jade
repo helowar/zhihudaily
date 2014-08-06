@@ -1,0 +1,33 @@
+extends template/header
+block content
+    .header.navbar-fixed-top
+        .container-fixed-width.clearfix
+            h1.logo
+                a.link-logo(href="/", title="知乎", target="_self")
+            .link
+                a.button(href="/sections") 专题
+                a.link-search(href="http://www.baidu.com/?#wd=%E7%9E%8E%E6%89%AF%20site%3Adaily.zhihu.com&bs=%E7%9E%8E%E6%89%AF", title="搜索")
+                    i.ico
+                a.link-rss(href="/rss", title="订阅RSS")
+                    i.ico
+    .main-content
+        .container-fixed-width
+            .row(style="margin-top: 47px;")
+                .col-6
+                    h2.section-title
+                        | #{date}
+            .row.features
+                - each story in storys
+                    .col-md-4
+                        .feature(href="#{story.url}")
+                            .mask
+                            img(src="#{story.image}")
+                            a(href="#{story.url}")
+                                h3 #{story.title}
+    .footer
+        .txt
+            | #{time}ms · 内容转载自 知乎日报 ，项目开源于
+            a(href="https://github.com/faceair/zhihudaily") Github
+            | ，感谢
+            a(href="http://tietuku.com/") 贴图库
+            | 提供图片外链
