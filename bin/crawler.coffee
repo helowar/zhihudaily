@@ -11,9 +11,9 @@ fetchBeforeDay = (date , getAll)->
       throw new Error "StoriesNotFound"
     _.each dayObj.stories, (storyObj, index)->
       daily.fetchStory storyObj.id, (err, storyObj)->
-        throw err if err
-        daily.saveStory storyObj, dayObj.date, dayObj.stories.length - index, (err)->
-          throw err if err
+        unless err
+          daily.saveStory storyObj, dayObj.date, dayObj.stories.length - index, (err)->
+            console.log storyObj.id
     return fetchBeforeDay dayObj.date, true if getAll
     return dayObj.date
 

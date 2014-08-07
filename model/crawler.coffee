@@ -32,8 +32,6 @@ crawler.upImage = (storyObj, cb)->
 
   token = getToken()
   async.map imageUrls, ((imageUrl, callback)->
-    unless imageUrl
-      callback null
     crawler.postData "http://up.tietuku.com",
       form:
         Token: token
@@ -49,8 +47,9 @@ crawler.upImage = (storyObj, cb)->
     if results.length is 0
       return cb null, storyObj
     for result in results
-      storyObj.body = storyObj.body.replace(result[0],result[1])
-      storyObj.image = storyObj.image.replace(result[0],result[1])
+      if result
+        storyObj.body = storyObj.body.replace(result[0],result[1])
+        storyObj.image = storyObj.image.replace(result[0],result[1])
     return cb null, storyObj
 
 module.exports = crawler

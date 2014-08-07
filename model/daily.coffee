@@ -11,13 +11,16 @@ daily.fetchBeforeDay = (date, cb) ->
 
 daily.fetchStory = (story_id, cb)->
   daily.getStory story_id, (err, storyObj)->
-    unless storyObj
+    if storyObj
+      return cb new Error "StoryExist"
+    else
       crawler.getData "http://news-at.zhihu.com/api/3/story/" + story_id, (err, storyObj)->
         return cb err if err
-        unless storyObj.body
+        if storyObj.theme_name
           return cb new Error "StoryNotFound"
+        unless storyObj.image
+          return cb new Error "ImangeNotFound"
         return cb null, storyObj
-    return cb null, storyObj
 
 daily.saveStory = (storyObj, date, index, cb)->
   crawler.upImage storyObj, (err, storyObj)->
