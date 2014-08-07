@@ -72,4 +72,9 @@ daily.deleteStory = (storyObj, cb)->
     return cb err if err
     return cb null, true
 
+daily.rss = (cb)->
+  StorySchema.find().sort({$natural:1}).limit(20).exec (err, storysArr)->
+    return cb err if err
+    return cb null, storysArr
+
 module.exports = daily
