@@ -62,4 +62,14 @@ daily.randOne = (date, cb)->
     return cb err if err
     return cb null, storysArr[Math.floor(Math.random()*storysArr.length)]
 
+daily.updateStory = (storyObj, storyObj_new, cb)->
+  StorySchema.findByIdAndUpdate storyObj._id, storyObj_new, (err, storyObj)->
+    return cb err if err
+    return cb null, storyObj
+
+daily.deleteStory = (storyObj, cb)->
+  StorySchema.findByIdAndRemove storyObj._id, (err)->
+    return cb err if err
+    return cb null, true
+
 module.exports = daily
