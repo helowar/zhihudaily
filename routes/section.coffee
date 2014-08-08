@@ -7,55 +7,26 @@ cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 router = express.Router()
 
-router.get "/", cache.route(), (req, res) ->
+router.get "/", (req, res) ->
   Section.all (err, sectionsArr)->
-    return res.status(500).send err.message if err
-    async.map sectionsArr, (section, callback)->
-      if section.count > 4
-        callback null,
-          url: "/section/" + section.title
-          image: section.image
-          title: section.title
-      else
-        callback null
-    , (err, sectionsArr)->
-      return res.status(500).send err.message if err
-      sectionsArr_new = []
-      for section in sectionsArr
-        if section
-          sectionsArr_new.push section
-      time = Date.now() - res.socket._idleStart
-      res.render "day",
-        css: "day"
-        date: "专题"
-        storys: sectionsArr_new
-        time: time
+    console.log sectionsArr
+
 
 router.get "/:title", cache.route(), (req, res) ->
-  Section.get req.params.title, (err, sectionObj)->
-    return res.status(500).send err.message if err
-    stories = bubbleSort sectionObj.stories
-    async.map stories, (story, callback)->
-      Daily.getStoryById story._id, (err, storyObj)->
-        if err
-          callback()
-        else
-          callback null,
-            url: "/story/" + storyObj.id
-            image: storyObj.image
-            title: storyObj.title
-    , (err, sectionsArr)->
-      return res.status(500).send err.message if err
-      sectionsArr_new = []
-      for section in sectionsArr
-        if section
-          sectionsArr_new.push section
-      time = Date.now() - res.socket._idleStart
-      res.render "day",
-        css: "day"
-        date: sectionObj.title
-        storys: sectionsArr_new
-        time: time
+  Section.getStory req.params.title, (err, sectionsArr)->
+    stories = bubbleSort sectionsArr
+    sectionsArr_new = []
+    for story in stories
+      sectionsArr_new.push
+        url: "/story/" + story.id
+        image: story.image
+        title: story.title
+    time = Date.now() - res.socket._idleStart
+    res.render "day",
+      css: "day"
+      date: story.section
+      storys: sectionsArr_new
+      time: time
 
 bubbleSort = (arr) ->
   i = arr.length

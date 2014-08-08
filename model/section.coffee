@@ -1,7 +1,7 @@
 mongoose = require "mongoose"
 async = require "async"
 Daily = require "../model/daily"
-{SectionSchema} = require "../model/schema"
+{SectionSchema, StorySchema} = require "../model/schema"
 Section = {}
 
 Section.save = (sectionObj, cb)->
@@ -18,6 +18,14 @@ Section.get = (title, cb)->
     unless sectionObj
       return cb new Error "SectionNotFound"
     return cb null, sectionObj
+
+Section.getStory = (title, cb)->
+  StorySchema.aggregate
+    $match:
+      section: title
+  , (err, sectionsArr)->
+    return cb err if err
+    return cb null, sectionsArr
 
 Section.all = (cb)->
   SectionSchema.find({}).sort('-count').exec (err, sectionsArr)->
