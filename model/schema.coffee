@@ -9,6 +9,7 @@ StorySchema = new Schema
   body: String
   image_source: String
   title: String
+  section: String
   image: String
   share_url: String
   date: String

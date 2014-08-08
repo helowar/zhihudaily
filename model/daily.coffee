@@ -25,11 +25,17 @@ daily.fetchStory = (story_id, cb)->
 daily.saveStory = (storyObj, date, index, cb)->
   crawler.upImage storyObj, (err, storyObj)->
     return cb err if err
+    sectionArr = storyObj.title.match /(.*) · /
+    if sectionArr
+      section = sectionArr[1]
+    else
+      section = ""
     storyObj_new =
       id: storyObj.id
       body: storyObj.body
       image_source: storyObj.image_source
       title: storyObj.title
+      section: section
       image: storyObj.image
       share_url: storyObj.share_url
       date: date
