@@ -9,12 +9,26 @@ StorySchema = new Schema
   body: String
   image_source: String
   title: String
-  section: String
+  section:
+    type: String
+    index:
+      unique: false
   image: String
   share_url: String
   date: String
   index: Number
 , { versionKey: false }
 
+SectionSchema = new Schema
+  title:
+    type: String
+    index:
+      unique: true
+  stories: Array
+  count: Number
+  image: String
+, { versionKey: false }
+
 module.exports =
+  SectionSchema: mongoose.model "section", SectionSchema
   StorySchema: mongoose.model "story", StorySchema

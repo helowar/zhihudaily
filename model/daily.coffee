@@ -2,15 +2,16 @@ mongoose = require "mongoose"
 async = require "async"
 {StorySchema} = require "../model/schema"
 crawler = require "./crawler"
-daily = {}
+Section = require "./section"
+Daily = {}
 
-daily.fetchBeforeDay = (date, cb) ->
+Daily.fetchBeforeDay = (date, cb) ->
   crawler.getData "http://news-at.zhihu.com/api/3/stories/before/" + date, (err, dayObj)->
     return cb err if err
     return cb null, dayObj
 
-daily.fetchStory = (story_id, cb)->
-  daily.getStory story_id, (err, storyObj)->
+Daily.fetchStory = (story_id, cb)->
+  Daily.getStory story_id, (err, storyObj)->
     if storyObj
       return cb new Error "StoryExist"
     else
@@ -22,20 +23,48 @@ daily.fetchStory = (story_id, cb)->
           return cb new Error "ImangeNotFound"
         return cb null, storyObj
 
-daily.saveStory = (storyObj, date, index, cb)->
+Daily.saveStory = (storyObj, date, index, cb)->
   crawler.upImage storyObj, (err, storyObj)->
     return cb err if err
     sectionArr = storyObj.title.match /(.*) · /
     if sectionArr
-      section = sectionArr[1]
+      section_title = sectionArr[1]
+      Section.get section_title, (err, sectionObj)->
+        if err
+          if err.message is "SectionNotFound"
+            Daily.randOne {section: section_title}, (err, randObj)->
+              return cb err if err
+              sectionObj =
+                title: section_title
+                count: 1
+                image: randObj.image
+                stories: [
+                  _id: storyObj._id
+                  date: storyObj.date
+                  index: storyObj.index
+                ]
+              Section.save sectionObj, (err)->
+                return cb err if err
+          else
+            return cb err if err
+        Daily.randOne {section: section_title}, (err, randObj)->
+          return cb err if err
+          sectionObj.count += 1
+          sectionObj.image = randObj.image
+          sectionObj.stories.push
+            _id: storyObj._id
+            date: storyObj.date
+            index: storyObj.index
+          Section.update sectionObj, sectionObj, (err)->
+            return cb err if err
     else
-      section = ""
+      section_title = null
     storyObj_new =
       id: storyObj.id
       body: storyObj.body
       image_source: storyObj.image_source
       title: storyObj.title
-      section: section
+      section: section_title
       image: storyObj.image
       share_url: storyObj.share_url
       date: date
@@ -45,7 +74,7 @@ daily.saveStory = (storyObj, date, index, cb)->
       return cb err if err
       return cb null, storyObj
 
-daily.getStory = (story_id, cb)->
+Daily.getStory = (story_id, cb)->
   query =
     id: story_id
   StorySchema.findOne query, {}, (err, storyObj)->
@@ -54,7 +83,7 @@ daily.getStory = (story_id, cb)->
       return cb new Error "StoryNotFound"
     return cb null, storyObj
 
-daily.getDay = (date, cb)->
+Daily.getDay = (date, cb)->
   query =
     date: date
   StorySchema.find(query).sort('-index').exec (err, storysArr)->
@@ -63,24 +92,24 @@ daily.getDay = (date, cb)->
       return cb new Error "DayNotFound"
     return cb null, storysArr
 
-daily.randOne = (date, cb)->
-  daily.getDay date, (err, storysArr)->
+Daily.randOne = (query, cb)->
+  StorySchema.find(query).exec (err, storysArr)->
     return cb err if err
     return cb null, storysArr[Math.floor(Math.random()*storysArr.length)]
 
-daily.updateStory = (storyObj, storyObj_new, cb)->
+Daily.updateStory = (storyObj, storyObj_new, cb)->
   StorySchema.findByIdAndUpdate storyObj._id, storyObj_new, (err, storyObj)->
     return cb err if err
     return cb null, storyObj
 
-daily.deleteStory = (storyObj, cb)->
+Daily.deleteStory = (storyObj, cb)->
   StorySchema.findByIdAndRemove storyObj._id, (err)->
     return cb err if err
     return cb null, true
 
-daily.rss = (cb)->
+Daily.rss = (cb)->
   StorySchema.find().sort({$natural:1}).limit(20).exec (err, storysArr)->
     return cb err if err
     return cb null, storysArr
 
-module.exports = daily
+module.exports = Daily

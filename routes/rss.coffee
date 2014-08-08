@@ -2,7 +2,7 @@ express = require "express"
 RSS = require "rss"
 moment = require "moment"
 config = require "../config"
-daily = require "../model/daily"
+Daily = require "../model/daily"
 cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 router = express.Router()
@@ -11,7 +11,7 @@ router.get "/"
 , (req, res, next) ->
   cache.route(req.originalUrl, 60*5)(req, res, next)
 , (req, res) ->
-  daily.rss (err, storysArr)->
+  Daily.rss (err, storysArr)->
     feed = new RSS(
       title: "知乎日报"
       description: "知乎日报 - 满足你的好奇心"

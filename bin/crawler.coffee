@@ -4,18 +4,18 @@ config = require "../config"
 cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 _ = require "underscore"
-daily = require "../model/daily"
+Daily = require "../model/daily"
 {db, crawler} = require "../config"
 
 fetchBeforeDay = (date , getAll)->
-  daily.fetchBeforeDay date, (err, dayObj)->
+  Daily.fetchBeforeDay date, (err, dayObj)->
     throw err if err
     unless dayObj.stories
       throw new Error "StoriesNotFound"
     _.each dayObj.stories, (storyObj, index)->
-      daily.fetchStory storyObj.id, (err, storyObj)->
+      Daily.fetchStory storyObj.id, (err, storyObj)->
         unless err
-          daily.saveStory storyObj, dayObj.date, dayObj.stories.length - index, (err)->
+          Daily.saveStory storyObj, dayObj.date, dayObj.stories.length - index, (err)->
             if crawler.fetch is "today"
               cache.del "/", ->
               cache.del "/day/" + dayObj.date, ->

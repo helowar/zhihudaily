@@ -16,5 +16,6 @@ app.use express.static path.join(__dirname, "public")
 app.use "/", require "./routes/index"
 app.use "/day", require "./routes/day"
 app.use "/story", require "./routes/story"
+app.use "/section", require "./routes/section"
 app.use "/rss", require "./routes/rss"
 module.exports = app

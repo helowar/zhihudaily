@@ -1,8 +1,8 @@
-daily = require "./daily"
+Daily = require "./daily"
 
 module.exports =
   xml = (cb)->
-    daily.queryStory query, {}, (err, storysObj)->
+    Daily.queryStory query, {}, (err, storysObj)->
       return cb err if err
       feed = new RSS
         title: "知乎日报"
