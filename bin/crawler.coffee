@@ -19,6 +19,7 @@ fetchBeforeDay = (date , getAll)->
             if crawler.fetch is "today"
               cache.del "/", ->
               cache.del "/day/" + dayObj.date, ->
+              cache.del "/rss", ->
             console.log storyObj.id
     return fetchBeforeDay dayObj.date, true if getAll
     return dayObj.date

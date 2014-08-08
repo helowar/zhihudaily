@@ -3,6 +3,9 @@ async = require "async"
 {StorySchema} = require "../model/schema"
 crawler = require "./crawler"
 Section = require "./section"
+config = require "../config"
+cache = require('express-redis-cache')
+  host: config.redis.host, port: config.redis.port
 Daily = {}
 
 Daily.fetchBeforeDay = (date, cb) ->
@@ -29,6 +32,8 @@ Daily.saveStory = (storyObj, date, index, cb)->
     sectionArr = storyObj.title.match /(.*) · /
     if sectionArr
       section_title = sectionArr[1]
+      cache.del "/section", ->
+      cache.del "/section/" + section_title, ->
       Section.get section_title, (err, sectionObj)->
         if err
           if err.message is "SectionNotFound"
@@ -78,6 +83,13 @@ Daily.getStory = (story_id, cb)->
   query =
     id: story_id
   StorySchema.findOne query, {}, (err, storyObj)->
+    return cb err if err
+    unless storyObj
+      return cb new Error "StoryNotFound"
+    return cb null, storyObj
+
+Daily.getStoryById = (id, cb)->
+  StorySchema.findById id, (err, storyObj)->
     return cb err if err
     unless storyObj
       return cb new Error "StoryNotFound"

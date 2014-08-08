@@ -7,7 +7,7 @@ router = express.Router()
 
 router.get "/:story_id"
 , (req, res, next) ->
-  cache.route(req.originalUrl, 60*60)(req, res, next)
+  cache.route(req.originalUrl, 60*60*24)(req, res, next)
 , (req, res) ->
   Daily.getStory req.params.story_id, (err, storyObj)->
     if err

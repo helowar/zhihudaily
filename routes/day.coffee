@@ -7,7 +7,7 @@ showDay = require("./middleware").showDay
 
 router.get "/:date"
 , (req, res, next) ->
-  cache.route(req.originalUrl, 60*30)(req, res, next)
+  cache.route(req.originalUrl, 60*60*24)(req, res, next)
 , (req, res) ->
   showDay(req, res)
 
