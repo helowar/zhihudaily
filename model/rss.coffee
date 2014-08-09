@@ -1,7 +1,6 @@
 Daily = require "./daily"
 
-module.exports =
-  xml = (cb)->
+exports.xml = (cb)->
     Daily.queryStory query, {}, (err, storysObj)->
       return cb err if err
       feed = new RSS

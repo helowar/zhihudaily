@@ -9,7 +9,7 @@ crawler.getData = (url, cb, times = 0) ->
     if err
       times += 1
       if times < 5
-        return fetch.getData url, cb, times
+        return crawler.getData url, cb, times
       else
         return cb err
     return cb null, JSON.parse body
@@ -19,7 +19,7 @@ crawler.postData = (url, form, cb, times = 0) ->
     if err
       times += 1
       if times < 5
-        return fetch.postData url, form, cb, times
+        return crawler.postData url, form, cb, times
       else
         return cb err
     return cb null, JSON.parse body

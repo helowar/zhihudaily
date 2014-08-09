@@ -1,9 +1,8 @@
 moment = require "moment"
 moment.locale("zh-cn")
 Daily = require "../model/daily"
-middleware = {}
 
-middleware.showDay = (req, res) ->
+exports.showDay = (req, res) ->
   getDay req.params.date, (err, storysArr)->
     if err
       if err.message == "DayNotFound"
@@ -46,5 +45,3 @@ getDay = (date, cb)->
         return cb err
     else
       return cb null, storysArr
-
-module.exports = middleware

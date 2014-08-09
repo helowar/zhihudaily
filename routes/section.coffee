@@ -7,16 +7,26 @@ cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 router = express.Router()
 
-router.get "/", (req, res) ->
+router.get "/", cache.route(), (req, res) ->
   Section.all (err, sectionsArr)->
-    console.log sectionsArr
-
+    sectionsArr_new = []
+    for section in sectionsArr
+      if section._id.title and section.count > 4
+        sectionsArr_new.push
+          url: "/section/" + section._id.title
+          image: section.images[Math.floor(Math.random()*section.images.length)]
+          title: section._id.title
+    time = Date.now() - res.socket._idleStart
+    res.render "day",
+      css: "day"
+      date: "专题"
+      storys: sectionsArr_new
+      time: time
 
 router.get "/:title", cache.route(), (req, res) ->
-  Section.getStory req.params.title, (err, sectionsArr)->
-    stories = bubbleSort sectionsArr
+  Section.getStory req.params.title, (err, storysArr)->
     sectionsArr_new = []
-    for story in stories
+    for story in storysArr
       sectionsArr_new.push
         url: "/story/" + story.id
         image: story.image
@@ -27,18 +37,5 @@ router.get "/:title", cache.route(), (req, res) ->
       date: story.section
       storys: sectionsArr_new
       time: time
-
-bubbleSort = (arr) ->
-  i = arr.length
-  while i > 0
-    j = 0
-    while j < i - 1
-      if arr[j].date.valueOf() > arr[j + 1].date.valueOf() or arr[j].date.valueOf() == arr[j + 1].date.valueOf() and arr[j].date.index > arr[j + 1].date.index
-        tempVal = arr[j]
-        arr[j] = arr[j + 1]
-        arr[j + 1] = tempVal
-      j++
-    i--
-  return arr.reverse()
 
 module.exports = router

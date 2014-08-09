@@ -13,17 +13,14 @@ class tietusdk
     return new Buffer(str).toString('base64').replace('+','-').replace('/','_')
 
 {tietuku} = require "../config"
-tietu ={}
 
-tietu.getToken = ->
-    param =
-      deadline: Date.now() + 31536000
-      album: tietuku.album
-      from: 'web'
-      returnBody:
-        ubburl: 'url'
+exports.getToken = ->
+  param =
+    deadline: Date.now() + 31536000
+    album: tietuku.album
+    from: 'web'
+    returnBody:
+      ubburl: 'url'
 
-    sdk = new tietusdk tietuku.accesskey,tietuku.secretkey
-    return sdk.Token param
-
-module.exports = tietu
+  sdk = new tietusdk tietuku.accesskey,tietuku.secretkey
+  return sdk.Token param

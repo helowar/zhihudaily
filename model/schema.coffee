@@ -19,16 +19,5 @@ StorySchema = new Schema
   index: Number
 , { versionKey: false }
 
-SectionSchema = new Schema
-  title:
-    type: String
-    index:
-      unique: true
-  stories: Array
-  count: Number
-  image: String
-, { versionKey: false }
-
 module.exports =
-  SectionSchema: mongoose.model "section", SectionSchema
   StorySchema: mongoose.model "story", StorySchema

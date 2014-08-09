@@ -34,34 +34,6 @@ Daily.saveStory = (storyObj, date, index, cb)->
       section_title = sectionArr[1]
       cache.del "/section", ->
       cache.del "/section/" + section_title, ->
-      Section.get section_title, (err, sectionObj)->
-        if err
-          if err.message is "SectionNotFound"
-            Daily.randOne {section: section_title}, (err, randObj)->
-              return cb err if err
-              sectionObj =
-                title: section_title
-                count: 1
-                image: randObj.image
-                stories: [
-                  _id: storyObj._id
-                  date: storyObj.date
-                  index: storyObj.index
-                ]
-              Section.save sectionObj, (err)->
-                return cb err if err
-          else
-            return cb err if err
-        Daily.randOne {section: section_title}, (err, randObj)->
-          return cb err if err
-          sectionObj.count += 1
-          sectionObj.image = randObj.image
-          sectionObj.stories.push
-            _id: storyObj._id
-            date: storyObj.date
-            index: storyObj.index
-          Section.update sectionObj, sectionObj, (err)->
-            return cb err if err
     else
       section_title = null
     storyObj_new =
@@ -83,13 +55,6 @@ Daily.getStory = (story_id, cb)->
   query =
     id: story_id
   StorySchema.findOne query, {}, (err, storyObj)->
-    return cb err if err
-    unless storyObj
-      return cb new Error "StoryNotFound"
-    return cb null, storyObj
-
-Daily.getStoryById = (id, cb)->
-  StorySchema.findById id, (err, storyObj)->
     return cb err if err
     unless storyObj
       return cb new Error "StoryNotFound"
