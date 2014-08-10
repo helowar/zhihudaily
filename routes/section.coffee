@@ -7,13 +7,18 @@ cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 router = express.Router()
 
-router.get "/", cache.route(), (req, res) ->
+router.get "/"
+, (req, res, next) ->
+  if config.redis.switch
+    cache.route()(req, res, next)
+  next()
+, (req, res) ->
   Section.all (err, sectionsArr)->
     sectionsArr_new = []
     for section in sectionsArr
       if section._id.title and section.count > 4
         sectionsArr_new.push
-          url: "/section/" + section._id.title
+          url: "/section/" + encodeURIComponent(section._id.title)
           image: section.images[Math.floor(Math.random()*section.images.length)]
           title: section._id.title
     time = Date.now() - res.socket._idleStart
@@ -34,7 +39,7 @@ router.get "/:title", cache.route(), (req, res) ->
     time = Date.now() - res.socket._idleStart
     res.render "day",
       css: "day"
-      date: story.section
+      date: story.section_name
       storys: sectionsArr_new
       time: time
 

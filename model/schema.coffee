@@ -9,14 +9,21 @@ StorySchema = new Schema
   body: String
   image_source: String
   title: String
-  section:
+  ga_prefix: String
+  section_name:
     type: String
     index:
       unique: false
   image: String
   share_url: String
-  date: String
-  index: Number
+  date:
+    type: String
+    index:
+      unique: false
+  publish_at:
+    type: Date
+    index:
+      unique: false
 , { versionKey: false }
 
 module.exports =

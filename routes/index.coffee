@@ -6,7 +6,12 @@ cache = require('express-redis-cache')
 router = express.Router()
 showDay = require("./middleware").showDay
 
-router.get "/", cache.route(), (req, res) ->
+router.get "/"
+, (req, res, next) ->
+  if config.redis.switch
+    cache.route()(req, res, next)
+  next()
+, (req, res) ->
   req.params.date = moment().format("YYYYMMDD")
   showDay(req, res)
 

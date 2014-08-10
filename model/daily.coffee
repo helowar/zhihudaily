@@ -1,5 +1,7 @@
 mongoose = require "mongoose"
 async = require "async"
+moment = require "moment"
+moment.locale("zh-cn")
 {StorySchema} = require "../model/schema"
 crawler = require "./crawler"
 Section = require "./section"
@@ -26,27 +28,20 @@ Daily.fetchStory = (story_id, cb)->
           return cb new Error "ImangeNotFound"
         return cb null, storyObj
 
-Daily.saveStory = (storyObj, date, index, cb)->
+Daily.saveStory = (storyObj, date, cb)->
   crawler.upImage storyObj, (err, storyObj)->
     return cb err if err
-    sectionArr = storyObj.title.match /(.*) · /
-    if sectionArr
-      section_title = sectionArr[1]
-      cache.del "/section", ->
-      cache.del "/section/" + section_title, ->
-    else
-      section_title = null
-    storyObj_new =
+    story = new StorySchema
       id: storyObj.id
       body: storyObj.body
       image_source: storyObj.image_source
       title: storyObj.title
-      section: section_title
+      ga_prefix: storyObj.ga_prefix
+      section_name: storyObj.section_name
       image: storyObj.image
       share_url: storyObj.share_url
       date: date
-      index: index
-    story = new StorySchema storyObj_new
+      publish_at: moment(date + storyObj.ga_prefix.substr(-2), "YYYYMMDDHH").format()
     story.save (err, storyObj) ->
       return cb err if err
       return cb null, storyObj
@@ -63,7 +58,7 @@ Daily.getStory = (story_id, cb)->
 Daily.getDay = (date, cb)->
   query =
     date: date
-  StorySchema.find(query).sort('-index').exec (err, storysArr)->
+  StorySchema.find(query).sort({ publish_at: -1, id: -1 }).exec (err, storysArr)->
     return cb err if err
     if storysArr.length is 0
       return cb new Error "DayNotFound"
@@ -85,7 +80,7 @@ Daily.deleteStory = (storyObj, cb)->
     return cb null, true
 
 Daily.rss = (cb)->
-  StorySchema.find().sort({$natural:1}).limit(20).exec (err, storysArr)->
+  StorySchema.find({}, null,{limit: 20}).sort({ publish_at: -1, id: -1 }).exec (err, storysArr)->
     return cb err if err
     return cb null, storysArr
 

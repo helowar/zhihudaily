@@ -10,17 +10,17 @@ Daily = require "../model/daily"
 fetchBeforeDay = (date , getAll)->
   Daily.fetchBeforeDay date, (err, dayObj)->
     throw err if err
-    unless dayObj.stories
-      throw new Error "StoriesNotFound"
-    _.each dayObj.stories, (storyObj, index)->
-      Daily.fetchStory storyObj.id, (err, storyObj)->
-        unless err
-          Daily.saveStory storyObj, dayObj.date, dayObj.stories.length - index, (err)->
-            if crawler.fetch is "today"
-              cache.del "/", ->
-              cache.del "/day/" + dayObj.date, ->
-              cache.del "/rss", ->
-            console.log storyObj.id
+    if dayObj.stories
+      _.each dayObj.stories, (storyObj)->
+        Daily.fetchStory storyObj.id, (err, storyObj)->
+          unless err
+            Daily.saveStory storyObj, dayObj.date, (err)->
+              unless err
+                if crawler.fetch is "today"
+                  cache.del "/", ->
+                  cache.del "/day/" + dayObj.date, ->
+                  cache.del "/rss", ->
+                console.log storyObj.id
     return fetchBeforeDay dayObj.date, true if getAll
     return dayObj.date
 
@@ -32,5 +32,3 @@ mongoose.connect db.url, (err)->
         setInterval fetchBeforeDay(tomorrow, false), crawler.interval
       when "full"
         fetchBeforeDay tomorrow, true
-
-

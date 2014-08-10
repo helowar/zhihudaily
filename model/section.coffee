@@ -5,7 +5,7 @@ exports.getStory = (title, cb)->
   StorySchema.aggregate [
       {
         $match:
-          section: title
+          section_name: title
       },{
         $sort:
           date: -1
@@ -21,7 +21,7 @@ exports.all = (cb)->
       {
         $group:
           _id:
-            title: "$section"
+            title: "$section_name"
           count:
             $sum: 1
           images:

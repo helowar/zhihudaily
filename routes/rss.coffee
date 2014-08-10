@@ -7,7 +7,12 @@ cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 router = express.Router()
 
-router.get "/", cache.route(), (req, res) ->
+router.get "/"
+, (req, res, next) ->
+  if config.redis.switch
+    cache.route()(req, res, next)
+  next()
+, (req, res) ->
   Daily.rss (err, storysArr)->
     feed = new RSS(
       title: "知乎日报"
@@ -26,7 +31,7 @@ router.get "/", cache.route(), (req, res) ->
         description: storyObj.body,
         url: "http://www.zhihudaily.net/story/" + storyObj.id,
         guid: storyObj.id,
-        date: moment(storyObj.date, "YYYYMMDD").format()
+        date: storyObj.publish_at
       )
     res.contentType "application/xml"
     return res.send feed.xml()
