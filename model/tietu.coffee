@@ -17,10 +17,8 @@ class tietusdk
 exports.getToken = ->
   param =
     deadline: Date.now() + 31536000
-    album: tietuku.album
+    aid: tietuku.album
     from: 'web'
-    returnBody:
-      ubburl: 'url'
 
   sdk = new tietusdk tietuku.accesskey,tietuku.secretkey
   return sdk.Token param

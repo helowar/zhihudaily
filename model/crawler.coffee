@@ -40,8 +40,7 @@ crawler.upImage = (storyObj, cb)->
       if err or body.code
         callback null
       else
-        tietukuUrls = body.url.match(/img\](.+)\[\/img/)
-        callback null, [imageUrl, tietukuUrls[1]]
+        callback null, [imageUrl, body.linkurl]
   ), (err, results) ->
     return cb err if err
     if results.length is 0
