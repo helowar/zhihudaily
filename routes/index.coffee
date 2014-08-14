@@ -10,7 +10,8 @@ router.get "/"
 , (req, res, next) ->
   if config.redis.switch
     cache.route()(req, res, next)
-  next()
+  else
+    next()
 , (req, res) ->
   req.params.date = moment().format("YYYYMMDD")
   showDay(req, res)

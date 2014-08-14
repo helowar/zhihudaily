@@ -12,6 +12,7 @@ exports.showDay = (req, res) ->
     storysArr_new = []
     for story in storysArr
       storysArr_new.push
+        image_source: story.image_source
         url: "/story/" + story.id
         image: story.image
         title: story.title
@@ -24,12 +25,15 @@ exports.showDay = (req, res) ->
           title: moment(beforeDay, "YYYYMMDD").format("YYYY.MM.DD dddd")
       if story.date == moment().format("YYYYMMDD")
         date = "今日热闻"
+        title = "知乎日报 - 满足你的好奇心"
       else
         date = moment(story.date, "YYYYMMDD").format("YYYY.MM.DD dddd")
+        title = moment(story.date, "YYYYMMDD").format("LL") + " - 知乎日报"
       time = Date.now() - res.socket._idleStart
       res.render "day",
         css: "day"
-        date: date
+        title: title
+        section_title: date
         storys: storysArr_new
         time: time
 

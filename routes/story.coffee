@@ -9,7 +9,8 @@ router.get "/:story_id"
 , (req, res, next) ->
   if config.redis.switch
     cache.route(req.originalUrl, 60*60*24)(req, res, next)
-  next()
+  else
+    next()
 , (req, res) ->
   Daily.getStory req.params.story_id, (err, storyObj)->
     if err
@@ -21,6 +22,7 @@ router.get "/:story_id"
     time = Date.now() - res.socket._idleStart
     res.render "story",
       css: "story"
+      title: storyObj.title + " - 知乎日报"
       date: storyObj.date
       body: storyObj.body
       time: time

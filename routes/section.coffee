@@ -11,7 +11,8 @@ router.get "/"
 , (req, res, next) ->
   if config.redis.switch
     cache.route()(req, res, next)
-  next()
+  else
+    next()
 , (req, res) ->
   Section.all (err, sectionsArr)->
     sectionsArr_new = []
