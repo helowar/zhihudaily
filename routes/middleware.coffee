@@ -1,7 +1,20 @@
 moment = require "moment"
+config = require "../config"
+cache = require('express-redis-cache')
+  host: config.redis.host, port: config.redis.port
 deviceType = require "ua-device-type"
 moment.locale("zh-cn")
 Daily = require "../model/daily"
+
+exports.platform = (req, res, next) ->
+  platform = deviceType req.headers["user-agent"]
+  if platform in ["desktop", "tablet", "tv"]
+    req.originalUrl = req.originalUrl + "/desktop"
+    req.platform = "desktop"
+  else
+    req.originalUrl = req.originalUrl + "/mobile"
+    req.platform = "mobile"
+  next()
 
 exports.showDay = (req, res) ->
   getDay req.params.date, (err, storysArr)->
@@ -19,8 +32,7 @@ exports.showDay = (req, res) ->
       title = moment(storysArr[0].date, "YYYYMMDD").format("LL") + " - 知乎日报"
 
     beforeDay = moment(storysArr[0].date, "YYYYMMDD").add(-1, 'd').format("YYYYMMDD")
-    platform = deviceType req.headers["user-agent"]
-    if platform in ["desktop", "tablet", "tv"]
+    if req.platform == "desktop"
       Daily.randOne {date: beforeDay}, (err, randObj)->
         if not err and randObj
           storysArr.push

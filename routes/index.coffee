@@ -4,9 +4,9 @@ config = require "../config"
 cache = require('express-redis-cache')
   host: config.redis.host, port: config.redis.port
 router = express.Router()
-showDay = require("./middleware").showDay
+{showDay, platform} = require "./middleware"
 
-router.get "/"
+router.get "/", platform
 , (req, res, next) ->
   if config.redis.switch
     cache.route()(req, res, next)

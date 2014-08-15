@@ -15,5 +15,6 @@ module.exports =
     fetch: "today"
 
   redis:
+    switch: true
     host: "localhost"
     port: 6358
