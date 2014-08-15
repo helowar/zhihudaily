@@ -61,6 +61,42 @@ a:hover, a:focus {
     position: absolute;
     bottom: 0;
 }
+.link {
+    float: right;
+    margin-right: -7px;
+}
+
+.link .button {
+    float: left;
+    display: inline-block;
+    height: 46px;
+    line-height: 46px;
+    width: 100px;
+    background-color: #1cade9;
+    margin: 12px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.link .icon {
+    float: left;
+    height: 32px;
+    width: 32px;
+}
+.link .link-search,
+.link .link-rss {
+    padding: 22px 7px 18px;
+    float: left;
+}
+.link .link-search .icon {
+    background-image: url('/img/search-icon.png');
+}
+.link .link-rss .icon {
+    background-image: url('/img/rss-icon.png');
+}
 
 .main-content {
     max-width: 960px;
