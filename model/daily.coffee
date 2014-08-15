@@ -31,6 +31,9 @@ Daily.fetchStory = (story_id, cb)->
 Daily.saveStory = (storyObj, date, cb)->
   crawler.upImage storyObj, (err, storyObj)->
     return cb err if err
+    if storyObj.section_name
+      cache.del "/section", ->
+      cache.del "/section/#{storyObj.section_name}", ->
     story = new StorySchema
       id: storyObj.id
       body: storyObj.body
