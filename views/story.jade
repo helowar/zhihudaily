@@ -2,8 +2,17 @@ extends template/header
 block content
     .global-header
         .main-wrap
-            a(href="/day/#{date}",target="_self",title="知乎日报")
+            a(href="/day/#{date}", target="_self", title="知乎日报")
                 i.web-logo
-    .main-wrap.content-wrap
-        != body
+    .main-wrap
+        .content-wrap
+            != body
+        if pre
+            a.pre.arrow(href="/story/#{pre.id}", title="#{pre.title}")
+                i.icon-arrow-right.left
+                .text 上一篇
+        if next
+            a.next.arrow(href="/story/#{next.id}", title="#{next.title}")
+                .text 下一篇
+                i.icon-arrow-right
     .footer #{time}ms · 内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a>

@@ -1,6 +1,7 @@
 mongoose = require "mongoose"
 async = require "async"
 moment = require "moment"
+_ = require "underscore"
 moment.locale("zh-cn")
 {StorySchema} = require "../model/schema"
 crawler = require "./crawler"
@@ -56,7 +57,24 @@ Daily.getStory = (story_id, cb)->
     return cb err if err
     unless storyObj
       return cb new Error "StoryNotFound"
-    return cb null, storyObj
+    Daily.getDay storyObj.date, (err, storysArr)->
+      return cb err if err
+      for storyObj_new, index in storysArr
+        if storyObj_new.id == storyObj.id
+          return cb null,
+            _id: storyObj._id
+            id: storyObj.id
+            body: storyObj.body
+            image_source: storyObj.image_source
+            title: storyObj.title
+            ga_prefix: storyObj.ga_prefix
+            section_name: storyObj.section_name
+            image: storyObj.image
+            share_url: storyObj.share_url
+            date: storyObj.date
+            pre: storysArr[index+1] ? null
+            next: storysArr[index-1] ? null
+            publish_at: storyObj.publish_at
 
 Daily.getDay = (date, cb)->
   query =

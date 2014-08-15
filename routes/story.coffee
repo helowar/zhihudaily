@@ -19,12 +19,15 @@ router.get "/:story_id"
       else
         return res.status(500).send err.message
     storyObj.body = storyObj.body.replace '<div class="img-place-holder"></div>','<div class="img-wrap"><h1 class="headline-title">' + storyObj.title + '</h1><span class="img-source">图片：' + storyObj.image_source + '</span><img alt="' + storyObj.title + '"  src="' + storyObj.image + '"><div class="img-mask"></div></div>'
+    storyObj.body = storyObj.body.replace '<i class="icon-arrow-right"></i>',''
     time = Date.now() - res.socket._idleStart
     res.render "story",
       css: "story"
       title: storyObj.title + " - 知乎日报"
       date: storyObj.date
       body: storyObj.body
+      pre: storyObj.pre
+      next: storyObj.next
       time: time
 
 module.exports = router
