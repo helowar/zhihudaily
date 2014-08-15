@@ -63,7 +63,7 @@ a:hover, a:focus {
 }
 .link {
     float: right;
-    margin-right: -7px;
+    margin-right: 5px;
 }
 
 .link .button {
@@ -137,8 +137,8 @@ h2.section-title {
 }
 .thumbnail img {
     display: block;
-    width: 300px;
-    height: 300px;
+    width: 293px;
+    height: 293px;
 }
 .thumbnail .title {
     font-weight: normal;
