@@ -5,21 +5,18 @@ block content
             a(href="/", target="_self", title="知乎日报")
               i.web-logo
     .main-content
-        .row.hidden-xs(style="margin-top: 47px;")
+        .row(style="margin-top: 47px;")
             .col-6
                 h2.section-title
                     | #{section_title}
-        .row.features.hidden-xs
+        .row.features
             - each story in storys
-                .col-sm-4
-                    .feature(href="#{story.url}")
+                .col-sm-4.col-xs-6
+                    a.thumbnail(href="#{story.url}")
                         .mask
                         img(src="#{story.image}")
-                        a(href="#{story.url}")
-                            h3 #{story.title}
-        .main-wrap.content-wrap.visible-xs-block
-            center.p 内容没有正常显示
-
+                        .display_date #{story.display_date}
+                        h3.title #{story.title}
 
     .footer
         .txt

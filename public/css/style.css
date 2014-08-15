@@ -31,6 +31,7 @@ a:hover, a:focus {
     background-repeat:no-repeat;
     display: inline-block;
     vertical-align: middle;
+    margin-left: 10px;
 }
 .global-header {
     width: 100%;
@@ -65,6 +66,10 @@ a:hover, a:focus {
     max-width: 960px;
     min-width: 300px;
     margin: 0 auto;
+    overflow: hidden;
+}
+.row {
+    padding: 0 10px;
 }
 h2.section-title {
     font-weight: normal;
@@ -73,19 +78,19 @@ h2.section-title {
     padding: 0 14px 20px;
     border-bottom: solid 1px #ccc;
 }
-.feature {
-    width: 300px;
-    height: 280px;
+.thumbnail{
     position: relative;
     margin-top: 30px;
     overflow: hidden;
+    display: block;
+    z-index: 2;
 }
-.feature .mask {
+.thumbnail .mask {
     position: absolute;
     top: 0;
     left: 0;
-    width: 300px;
-    height: 280px;
+    width: 100%;
+    height: 100%;
     background-color: rgba(204, 204, 204, 0);
     background-image: -webkit-gradient(linear, left 0%, left 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.7)));
     background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), 0%, rgba(0, 0, 0, 0.7), 100%);
@@ -94,74 +99,45 @@ h2.section-title {
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#b3000000', GradientType=0);
 }
-.feature img {
+.thumbnail img {
     display: block;
     width: 300px;
-    height: 280px;
+    height: 300px;
 }
-.feature a {
-    display: block;
-    height: 280px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 300px;
-}
-.feature h3 {
+.thumbnail .title {
     font-weight: normal;
     font-size: 18px;
     color: #fff;
-    /*margin: -61px auto 0;*/
-
-    position: absolute;
-    bottom: 12px;
+    bottom: 0;
     text-overflow: ellipsis;
+    position: absolute;
     overflow: hidden;
-    height: 52px;
-    width: 87%;
-    left: 6.5%;
+    left: 0;
     line-height: 26px;
     display: block;
+    margin: 0;
+    width: 100%;
+    min-height: 6rem;
+    padding: 1rem;
 }
-.feature h5 {
+.thumbnail .display_date {
     font-weight: normal;
     font-size: 16px;
     color: #fff;
-    /* margin: -61px auto 0; */
     position: absolute;
-    bottom: 12px;
     text-overflow: ellipsis;
     overflow: hidden;
-    height: 245px;
-    width: 87%;
-    left: 70%;
     line-height: 26px;
     display: block;
+    text-align: right;
+    float: left;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
 }
-.feature:hover {
+.thumbnail:hover {
     outline: solid 2px #33a9d8;
 }
-html.no-touch .item:hover {
-    text-decoration: none;
-}
-.item-link {
-    line-height: 2em;
-    position: relative;
-    padding: 25px 40px;
-    display: block;
-    text-decoration: none;
-}
-.item .heading{
-    color: #999;
-    font-size: 20px;
-    margin-bottom: 5px;
-}
-.item .item-content {
-    font-size: 24px;
-    color: #444;
-    text-decoration: none;
-}
-
 .main-wrap {
     max-width: 720px;
     min-width: 300px;
@@ -371,6 +347,17 @@ html.no-touch .footer a:hover {
     width: 12px;
     height: 20px;
 }
+@media (max-width: 767px) {
+    .thumbnail img {
+        display: block;
+        width: 100%;
+        height: 250px;
+    }
+    .thumbnail a {
+        width: 250px;
+    }
+
+}
 @media (max-width: 480px) {
     body{
         padding-top: 60px;
@@ -380,6 +367,9 @@ html.no-touch .footer a:hover {
     }
     .global-header {
         height: 60px;
+    }
+    .web-logo {
+        margin-left: 0;
     }
     .global-header .main-wrap {
         margin: 0 10px;
@@ -411,7 +401,7 @@ html.no-touch .footer a:hover {
         right: 10px !important;
         font-size: 9px;
     }
-    .headline-background-link .item{
+    .headline-background-link {
         padding: 20px 45px 20px 20px !important;
     }
     .headline-title {
@@ -422,17 +412,17 @@ html.no-touch .footer a:hover {
         font-size: 19px;
         margin: 20px 0;
     }
-    .headline-background .item .heading {
+    .headline-background .heading {
         font-size: 15px !important;
         margin-bottom: 8px;
         line-height: 1em;
     }
-    .headline-background .heading-content .item .item-content{
+    .headline-background .heading-content{
         font-size: 17px !important;
         line-height: 1.2em;
     }
     .question {
-        padding: 0 20px !important;
+        padding: 0 10px !important;
     }
     .button {
         width: 60px;

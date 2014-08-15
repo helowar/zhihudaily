@@ -1,0 +1,19 @@
+extends template/header-mobile
+block content
+    .global-header
+        .main-wrap
+            a(href="/",target="_self",title="知乎日报")
+                i.web-logo
+    .main-wrap.content-wrap
+        .headline
+            .img-wrap
+                h1.headline-title #{section_title}
+                span.img-source #{storys['0'].image_source}
+                img(src="#{storys['0'].image}")
+            - each story in storys
+                .item
+                    a.item-link(href="#{story.url}")
+                        .item-content #{story.title}
+    .footer
+        a.page-btn(target="_self", href="#{beforeday}") 前一天
+        .txt #{time}ms · 内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a>

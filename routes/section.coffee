@@ -24,12 +24,17 @@ router.get "/"
           title: section._id.title
     time = Date.now() - res.socket._idleStart
     res.render "day",
-      css: "day"
-      date: "专题"
+      section_title: "专题"
       storys: sectionsArr_new
       time: time
 
-router.get "/:title", cache.route(), (req, res) ->
+router.get "/:title"
+, (req, res, next) ->
+  if config.redis.switch
+    cache.route()(req, res, next)
+  else
+    next()
+, (req, res) ->
   Section.getStory req.params.title, (err, storysArr)->
     sectionsArr_new = []
     for story in storysArr
@@ -37,10 +42,11 @@ router.get "/:title", cache.route(), (req, res) ->
         url: "/story/" + story.id
         image: story.image
         title: story.title
+        display_date: story.date
     time = Date.now() - res.socket._idleStart
     res.render "day",
-      css: "day"
-      date: story.section_name
+      title: story.section_name + " - 知乎日报"
+      section_title: story.section_name
       storys: sectionsArr_new
       time: time
 

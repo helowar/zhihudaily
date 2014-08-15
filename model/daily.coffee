@@ -64,6 +64,17 @@ Daily.getDay = (date, cb)->
       return cb new Error "DayNotFound"
     return cb null, storysArr
 
+Daily.getFirstDay = (cb)->
+  StorySchema.findOne({}).sort({ publish_at: -1, id: -1 }).exec (err, storyObj)->
+    return cb err if err
+    query =
+      date: storyObj.date
+    StorySchema.find(query).sort({ publish_at: -1, id: -1 }).exec (err, storysArr)->
+      return cb err if err
+      if storysArr.length is 0
+        return cb new Error "DayNotFound"
+      return cb null, storysArr
+
 Daily.randOne = (query, cb)->
   StorySchema.find(query).exec (err, storysArr)->
     return cb err if err
