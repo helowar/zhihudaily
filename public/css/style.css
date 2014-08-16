@@ -85,10 +85,13 @@ a:hover, a:focus {
     float: left;
     height: 32px;
     width: 32px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 28px;
 }
 .link .link-search,
 .link .link-rss {
-    padding: 22px 7px 18px;
+    padding: 19px 1rem;
     float: left;
 }
 .link .link-search .icon {
@@ -187,12 +190,23 @@ h2.section-title {
 .arrow.pre{
     right: auto;
     left: 1rem;
+    float: left;
 }
 .arrow .text{
     display: none;
 }
 .arrow:hover{
     border-color: #ddd;
+}
+.share{
+    padding:20px 20px;
+}
+.share span{
+    margin-right: 1rem;
+}
+.bdsharebuttonbox {
+    display: inline-block;
+    vertical-align: middle;
 }
 .icon-arrow-right.left{
     -webkit-transform: rotate(180deg);
@@ -229,7 +243,7 @@ html.no-touch .headline-background:hover {
 .headline-background-link {
     line-height: 2em;
     position: relative;
-    padding: 25px 40px;
+    padding: 25px 25px;
     display: block;
     text-decoration: none;
 }
@@ -339,7 +353,8 @@ html.no-touch .headline-background:hover {
 }
 .view-more {
     text-align: right;
-    margin-bottom: 30px;
+    line-height: 28px;
+    float: right;
 }
 .view-more a{
     color: #698ebf;
@@ -432,6 +447,9 @@ html.no-touch .footer a:hover {
     blockquote, sup {
         line-height: 1.4em;
     }
+    .share{
+        padding:10px 10px;
+    }
     .web-logo {
         margin-left: 0;
     }
@@ -455,7 +473,7 @@ html.no-touch .footer a:hover {
         font-size: 9px;
     }
     .headline-background-link {
-        padding: 20px 45px 20px 20px !important;
+        padding: 20px 20px 20px 20px !important;
     }
     .headline-title {
         font-size: 21px;

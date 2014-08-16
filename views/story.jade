@@ -7,6 +7,18 @@ block content
     .main-wrap.clearfix
         .content-wrap
             != body
+            .share
+                span 分享到:
+                .bdsharebuttonbox
+                    a.bds_qzone(href="#", data-cmd="qzone", title="分享到QQ空间")
+                    a.bds_tsina(href="#", data-cmd="tsina", title="分享到新浪微博")
+                    a.bds_tqq(href="#", data-cmd="tqq", title="分享到腾讯微博")
+                    a.bds_renren(href="#", data-cmd="renren", title="分享到人人网")
+                    a.bds_weixin(href="#", data-cmd="weixin", title="分享到微信")
+                    a.bds_more(href="#", data-cmd="more")
+                script.
+                    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdDesc":"","bdUrl":"#{bdUrl}","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                != view_more
         if pre
             a.pre.arrow(href="/story/#{pre.id}", title="#{pre.title}")
                 i.icon-arrow-right.left
