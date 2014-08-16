@@ -14,13 +14,13 @@ fetchBeforeDay = (date , getAll)->
       _.each dayObj.stories, (storyObj)->
         Daily.fetchStory storyObj.id, (err, storyObj)->
           unless err
-            Daily.saveStory storyObj, dayObj.date, (err)->
+            Daily.saveStory storyObj, dayObj.date, (err, storyObj)->
               unless err
                 if crawler.fetch is "today"
                   Daily.getStory storyObj.id, (err, storyObj)->
                     unless err
                       if storyObj.pre
-                        cache.del "//story/#{storyObj.pre.id}", ->
+                        cache.del "/story/#{storyObj.pre.id}", ->
                   cache.del "//mobile", ->
                   cache.del "//desktop", ->
                   cache.del "/day/#{dayObj.date}/mobile", ->
