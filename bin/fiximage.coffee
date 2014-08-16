@@ -1,6 +1,9 @@
 mongoose = require "mongoose"
 daily = require "../model/daily"
 crawler = require "../model/crawler"
+config = require "../config"
+cache = require('express-redis-cache')
+  host: config.redis.host, port: config.redis.port
 {StorySchema} = require "../model/schema"
 {db} = require "../config"
 
@@ -18,10 +21,12 @@ mongoose.connect db.url, (err)->
       if imageUrls.length > 0
         crawler.upImage storyObj, (err, storyObj)->
           throw err if err
+
           storyObj_new =
             body: storyObj.body
             image: storyObj.image
           daily.updateStory storyObj, storyObj_new, (err, storyObj)->
             throw err if err
-            console.log storyObj
+            cache.del "/story/#{storyObj.id}", ->
+            console.log storyObj.id
 
