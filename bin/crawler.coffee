@@ -25,7 +25,6 @@ fetchBeforeDay = (date , getAll)->
                   cache.del "//desktop", ->
                   cache.del "/day/#{dayObj.date}/mobile", ->
                   cache.del "/day/#{dayObj.date}/desktop", ->
-                  cache.del "/rss", ->
                 console.log storyObj.id
     return fetchBeforeDay dayObj.date, true if getAll
     return dayObj.date
