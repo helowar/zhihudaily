@@ -18,4 +18,8 @@ app.use "/day", require "./routes/day"
 app.use "/story", require "./routes/story"
 app.use "/section", require "./routes/section"
 app.use "/rss", require "./routes/rss"
+
+app.use "/sections", require "./routes/section"
+app.use "/index.php", require "./routes/index"
+app.use "/rss.xml", require "./routes/rss"
 module.exports = app
