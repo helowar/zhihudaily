@@ -214,6 +214,7 @@ h2.section-title {
 .bdsharebuttonbox {
     display: inline-block;
     vertical-align: middle;
+    width: 7em;
 }
 .icon-arrow-right {
     background-image: url('/img/share-icons.png');
