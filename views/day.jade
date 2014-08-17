@@ -23,7 +23,6 @@ block content
                         img(src="#{story.image}")
                         .display_date #{story.display_date}
                         h3.title #{story.title}
-
     .footer
         .txt
             | #{time}ms · 内容转载自 知乎日报 ，项目开源于&nbsp;
@@ -31,3 +30,4 @@ block content
             | &nbsp;，感谢&nbsp;
             a(href="http://tietuku.com/") 贴图库
             | &nbsp;提供图片外链
+    include template/statistics

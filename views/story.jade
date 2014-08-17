@@ -17,6 +17,9 @@ block content
                 script.
                     window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdDesc":"","bdUrl":"#{bdUrl}","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
                 != view_more
+            .backtotop
+                a(href="#", title="回到顶部")
+                    i.icon-arrow-right.top
         if pre
             a.pre.arrow(href="/story/#{pre.id}", title="#{pre.title}")
                 i.icon-arrow-right.left
@@ -26,3 +29,4 @@ block content
                 .text 下一篇
                 i.icon-arrow-right
     .footer #{time}ms · 内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a>
+    include template/statistics

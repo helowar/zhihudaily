@@ -40,7 +40,7 @@ ul, ol {
 }
 .global-header {
     width: 100%;
-    position: fixed;
+    position: absolute;
     top:0;
     z-index: 9990;
     height: 70px;

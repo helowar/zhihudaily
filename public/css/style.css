@@ -35,7 +35,7 @@ a:hover, a:focus {
 }
 .global-header {
     width: 100%;
-    position: fixed;
+    position: absolute;
     top:0;
     z-index: 9990;
     height: 70px;
@@ -187,6 +187,13 @@ h2.section-title {
     right: 1rem;
     border: 1px solid #eee;
 }
+.backtotop {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    margin-left: 400px;
+    z-index: 19;
+}
 .arrow.pre{
     right: auto;
     left: 1rem;
@@ -208,12 +215,28 @@ h2.section-title {
     display: inline-block;
     vertical-align: middle;
 }
+.icon-arrow-right {
+    background-image: url('/img/share-icons.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    background-position: -70px 0px;
+    width: 12px;
+    height: 20px;
+}
 .icon-arrow-right.left{
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     transform: rotate(180deg);
+}
+.icon-arrow-right.top{
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
 }
 .main-wrap {
     max-width: 720px;
@@ -410,14 +433,10 @@ html.no-touch .view-more a:hover {
 html.no-touch .footer a:hover {
     text-decoration: underline;
 }
-.icon-arrow-right {
-    background-image: url('/img/share-icons.png');
-    background-repeat: no-repeat;
-    display: inline-block;
-    vertical-align: middle;
-    background-position: -70px 0px;
-    width: 12px;
-    height: 20px;
+@media (max-width: 860px) {
+    .backtotop {
+        display: none;
+    }
 }
 @media (max-width: 767px) {
     .thumbnail img {
