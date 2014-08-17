@@ -181,23 +181,15 @@ html.no-touch .footer a:hover {
 }
 
 @media (max-width: 480px) {
-    body{
-        padding-top: 60px;
-    }
     blockquote, sup {
         line-height: 1.4em;
-    }
-    .global-header {
-        height: 60px;
     }
     .web-logo {
         margin-left: 0;
     }
     .global-header .main-wrap {
         margin: 0 10px;
-        height: 60px;
         position: relative;
-        line-height: 60px;
     }
     .item-link {
         padding: 20px 10px !important;
