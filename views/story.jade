@@ -4,29 +4,35 @@ block content
         .main-wrap
             a(href="/day/#{date}", target="_self", title="知乎日报")
                 i.web-logo
-    .main-wrap.clearfix
-        .content-wrap
-            != body
-            .share
-                span 分享到:
-                .bdsharebuttonbox
-                    a.bds_qzone(href="#", data-cmd="qzone", title="分享到QQ空间")
-                    a.bds_tsina(href="#", data-cmd="tsina", title="分享到新浪微博")
-                    a.bds_weixin(href="#", data-cmd="weixin", title="分享到微信")
-                    a.bds_more(href="#", data-cmd="more")
-                script.
-                    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdDesc":"","bdUrl":"#{bdUrl}","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-                != view_more
-            .backtotop
-                a(href="#", title="回到顶部", target="_self")
-                    i.icon-arrow-right.top
-        if pre
-            a.pre.arrow(href="/story/#{pre.id}", target="_self", title="#{pre.title}")
-                i.icon-arrow-right.left
-                .text 上一篇
-        if next
-            a.next.arrow(href="/story/#{next.id}", target="_self", title="#{next.title}")
-                .text 下一篇
-                i.icon-arrow-right
-    .footer #{time}ms · 内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a>
-    include template/statistics
+    if prohibit
+        center
+            h2 本答案禁止转载，正在跳转到原链接
+        script.
+            window.setTimeout("location='#{origin_url}'", 2000);
+    else
+        .main-wrap.clearfix
+            .content-wrap
+                != body
+                .share
+                    span 分享到:
+                    .bdsharebuttonbox
+                        a.bds_qzone(href="#", data-cmd="qzone", title="分享到QQ空间")
+                        a.bds_tsina(href="#", data-cmd="tsina", title="分享到新浪微博")
+                        a.bds_weixin(href="#", data-cmd="weixin", title="分享到微信")
+                        a.bds_more(href="#", data-cmd="more")
+                    script.
+                        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdDesc":"","bdUrl":"#{bdUrl}","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                    != view_more
+                .backtotop
+                    a(href="#", title="回到顶部", target="_self")
+                        i.icon-arrow-right.top
+            if pre
+                a.pre.arrow(href="/story/#{pre.id}", target="_self", title="#{pre.title}")
+                    i.icon-arrow-right.left
+                    .text 上一篇
+            if next
+                a.next.arrow(href="/story/#{next.id}", target="_self", title="#{next.title}")
+                    .text 下一篇
+                    i.icon-arrow-right
+        .footer #{time}ms · 内容转载自 知乎日报 ，项目开源于 <a href="https://github.com/faceair/zhihudaily">Github</a>
+        include template/statistics
