@@ -11,7 +11,7 @@
 ## 更新概要
 
 * 2014.08.17 固定顶栏，添加回到顶部按钮
-* 2014.08.16 重构Node.js版本，添加redis缓存支持，支持文章分享，添加上下篇按钮 ([PHP版本](https://github.com/faceair/zhihudaily/tree/PHP)分支不再维护)
+* 2014.08.16 重构Node.js版本，添加redis缓存支持，支持文章分享，添加上下篇按钮 ([PHP版本分支](https://github.com/faceair/zhihudaily/tree/PHP)不再维护)
 * 2014.05.15 添加专题页面
 * 2014.05.03 重构PHP版本，图片转存到[贴图库](http://open.tietuku.com)，修改桌面版前端
 * 2013.08.06 添加Rss输出
@@ -19,8 +19,8 @@
 
 ## 感谢
 
-* 感谢 @izzyleung 提供的数据接口
-* 感谢 @unstop 帮助改进前端页面.
+* 感谢 [@izzyleung](https://github.com/izzyleung) 提供的数据接口
+* 感谢 [@unstop](https://github.com/unstop) 帮助改进前端页面.
 * 感谢 [贴图库](http://open.tietuku.com) 提供的免费图片外链
 
 知乎日报网页版是一个个人网站，没有添加第三方广告和推广内容，所以没有任何盈利。  
