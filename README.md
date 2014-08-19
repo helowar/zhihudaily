@@ -20,7 +20,7 @@
 ## 感谢
 
 * 感谢 [@izzyleung](https://github.com/izzyleung) 提供的数据接口
-* 感谢 [@unstop](https://github.com/unstop) 帮助改进前端页面.
+* 感谢 [@unstop](https://github.com/unstop) 帮助改进前端页面
 * 感谢 [贴图库](http://open.tietuku.com) 提供的免费图片外链
 
 知乎日报网页版是一个个人网站，没有添加第三方广告和推广内容，所以没有任何盈利。  
@@ -28,6 +28,7 @@
 
 感谢以下朋友的捐助和支持 (按照捐款时间排序，不定期更新)：
 
+* 郝晨煜 (138****9832) ￥20.00
 * 黄天燊 (hts***@qq.com) ￥5.00
 * 周荣冰 (her***@hotmail.com) ￥10.00
 * 彭新 (w15***@sina.com) ￥5.00
@@ -37,7 +38,13 @@
 * 胡鑫 (186****7677) ￥1
 * 马志明 (pal***@qq.com) ￥0.01
 
-我的支付宝帐号是：`faceair.zh@gmail.com`
+####捐助方式：
+支付宝扫一扫
+
+![支付宝](http://qiniu-up.qiniudn.com/1ee7372737234b5b2d417ce09f11b24c)
+
+
+帐号：`faceair.zh@gmail.com`
 
 ## Licence
 
