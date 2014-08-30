@@ -34,7 +34,7 @@ Daily.saveStory = (storyObj, date, cb)->
     return cb err if err
     if storyObj.section_name
       cache.del "/section", ->
-      cache.del "/section/#{storyObj.section_name}", ->
+      cache.del "/section/#{encodeURIComponent(storyObj.section_name)}", ->
     story = new StorySchema
       id: storyObj.id
       body: storyObj.body
