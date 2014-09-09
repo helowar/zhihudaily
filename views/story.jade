@@ -35,7 +35,6 @@ block content
                     .text 下一篇
                     i.icon-arrow-right
         .footer
-            | #{time}ms&nbsp;·&nbsp;内容转载自知乎日报&nbsp;·&nbsp;
-            a(href="https://github.com/faceair/zhihudaily#%E6%84%9F%E8%B0%A2") 捐助本站
-            | &nbsp;:)
+            | #{time}ms&nbsp;·&nbsp;内容转载自
+            a(href="#{origin_url}") 知乎日报
         include template/statistics
