@@ -19,7 +19,7 @@
     "request": "~2.39.0",
     "underscore": "1.6.0",
     "mysql": "~2.4.2",
-    "express-redis-cache": "~0.0.7",
+    "express-redis-cache": "~0.0.8",
     "rss": "~0.3.2",
     "moment": "~2.8.1",
     "ua-device-type": "~0.0.3"

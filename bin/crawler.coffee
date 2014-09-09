@@ -21,6 +21,7 @@ fetchBeforeDay = (date , getAll)->
                     unless err
                       if storyObj.pre
                         cache.del "/story/#{storyObj.pre.id}", ->
+                  cache.del "/rss", ->
                   cache.del "//mobile", ->
                   cache.del "//desktop", ->
                   cache.del "/day/#{dayObj.date}/mobile", ->
