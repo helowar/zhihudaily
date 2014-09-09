@@ -12,7 +12,7 @@ cache = require('express-redis-cache')
 Daily = {}
 
 Daily.fetchBeforeDay = (date, cb) ->
-  crawler.getData "http://news-at.zhihu.com/api/3/stories/before/" + date, (err, dayObj)->
+  crawler.getData config.api.beforeDay + date, (err, dayObj)->
     return cb err if err
     return cb null, dayObj
 
@@ -21,7 +21,7 @@ Daily.fetchStory = (story_id, cb)->
     if storyObj
       return cb new Error "StoryExist"
     else
-      crawler.getData "http://news-at.zhihu.com/api/3/story/" + story_id, (err, storyObj)->
+      crawler.getData config.api.story + story_id, (err, storyObj)->
         return cb err if err
         if storyObj.theme_name
           return cb new Error "StoryNotFound"
@@ -53,28 +53,18 @@ Daily.saveStory = (storyObj, date, cb)->
 Daily.getStory = (story_id, cb)->
   query =
     id: story_id
-  StorySchema.findOne query, {}, (err, storyObj)->
+  StorySchema.findOne query, {}, (err, storyDoc)->
     return cb err if err
+    storyObj = storyDoc.toObject()
     unless storyObj
       return cb new Error "StoryNotFound"
     Daily.getDay storyObj.date, (err, storysArr)->
       return cb err if err
       for storyObj_new, index in storysArr
         if storyObj_new.id == storyObj.id
-          return cb null,
-            _id: storyObj._id
-            id: storyObj.id
-            body: storyObj.body
-            image_source: storyObj.image_source
-            title: storyObj.title
-            ga_prefix: storyObj.ga_prefix
-            section_name: storyObj.section_name
-            image: storyObj.image
-            share_url: storyObj.share_url
-            date: storyObj.date
-            pre: storysArr[index+1] ? null
-            next: storysArr[index-1] ? null
-            publish_at: storyObj.publish_at
+          storyObj.pre = storysArr[index+1] ? null
+          storyObj.next = storysArr[index-1] ? null
+          return cb null, storyObj
 
 Daily.getDay = (date, cb)->
   query =

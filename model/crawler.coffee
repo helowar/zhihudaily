@@ -32,7 +32,7 @@ crawler.upImage = (storyObj, cb)->
 
   token = getToken()
   async.map imageUrls, ((imageUrl, callback)->
-    crawler.postData "http://up.tietuku.com",
+    crawler.postData require("../config").tietuku.url,
       form:
         Token: token
         fileurl: imageUrl

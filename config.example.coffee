@@ -6,6 +6,7 @@ module.exports =
     url: "mongodb://localhost:27017/zhihudaily"
 
   tietuku:
+    upurl: "http://up.tietuku.com"
     album: 1000
     accesskey: ""
     secretkey: ""
@@ -13,6 +14,10 @@ module.exports =
   crawler:
     interval: 600000
     fetch: "today"
+
+  api:
+    beforeDay: ""
+    story: ""
 
   redis:
     switch: true
